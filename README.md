@@ -1,2 +1,1 @@
-# kickstarterMain
-our Project
+# Kickstarter
