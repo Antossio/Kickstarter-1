@@ -24,7 +24,7 @@ public class DBConnectionManager {
 	private static int clients;
 	private ConnectionPool pool;
 	private Driver driver;
-
+	private HashMap<String, ConnectionPool> pools = new HashMap<>();
 
 	private DBConnectionManager() {
 		init();
@@ -41,14 +41,22 @@ public class DBConnectionManager {
 
 	/** Read properties from file, load the drivers, create the ConnectionPool */
 	private void init() {
-		loadDrivers();
-		createPools();
+		InputStream is = getClass().getResourceAsStream("/db.properties");
+		Properties dbProps = new Properties();
+		try {
+			dbProps.load(is);
+		}
+		catch (Exception e) {
+			throw new RuntimeException (e);
+		}
+		loadDrivers(dbProps);
+		createPools(dbProps);
 	}
 
-	/** Loading the drivers*/
-	private void loadDrivers() {
+	private void loadDrivers(Properties props) {
+		String driverClass = props.getProperty("drivers");
 		try {
-			Driver driver = (Driver)Class.forName("com.mysql.jdbc.Driver").newInstance();
+			Driver driver = (Driver)Class.forName(driverClass).newInstance();
 			DriverManager.registerDriver(driver);			
 		}
 		catch (Exception e) {
@@ -57,16 +65,27 @@ public class DBConnectionManager {
 	}
 
 	/** Create the pool*/
-	private void createPools() {
-		String url = Constants.DB_URL;
-		String user = Constants.USER;
-		String password = Constants.PASS;
-		int maxConn = Constants.MAX_CONN;
-		pool = new ConnectionPool(url, user, password, maxConn);		
+	private void createPools(Properties props) {
+		Enumeration propNames = props.propertyNames();
+		int max = 0;
+		while (propNames.hasMoreElements()) {
+			String name = (String) propNames.nextElement();
+			if (name.endsWith(".url")) {
+				String poolName = name.substring(0, name.lastIndexOf("."));
+				String url = props.getProperty(poolName + ".url");
+				String user = props.getProperty(poolName + ".user");
+				String password = props.getProperty(poolName + ".password");
+				String maxconn = props.getProperty(poolName + ".maxconn", "0");
+				max = Integer.parseInt(maxconn);
+				ConnectionPool pool = new ConnectionPool(poolName, url, user, password, max);
+				pools.put(poolName, pool);
+			}
+		}
 	}
 
 	/** Get ConnectionPool by the name*/
-	public Connection getConnection() {
+	public Connection getConnection(String name) {
+		ConnectionPool pool = (ConnectionPool) pools.get(name);
 		if (pool != null) {
 			return pool.getConnection();
 		}
@@ -74,7 +93,8 @@ public class DBConnectionManager {
 	}
 
 	/** Free the connection*/
-	public void freeConnection(Connection con) {
+	public void freeConnection(Connection con, String name) {
+		ConnectionPool pool = (ConnectionPool) pools.get(name);
 		if (pool != null) {
 			pool.freeConnection(con);
 		}
