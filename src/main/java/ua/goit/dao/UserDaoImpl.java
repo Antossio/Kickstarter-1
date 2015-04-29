@@ -1,5 +1,7 @@
 package ua.goit.dao;
 
+import ua.goit.factory.ConnectionGetAndFree;
+import ua.goit.factory.ConnectionPoolNames;
 import ua.goit.factory.DBConnectionManager;
 import ua.goit.model.User;
 
@@ -7,7 +9,7 @@ import java.sql.*;
 import java.util.*;
 
 public class UserDaoImpl implements UserDao {
-  private final DBConnectionManager connectionManager = DBConnectionManager.getInstance();
+	private ConnectionGetAndFree connectionGetAndFree = new ConnectionGetAndFree(ConnectionPoolNames.IDB);
 
   @Override
   public void add(User entity) {
@@ -15,7 +17,7 @@ public class UserDaoImpl implements UserDao {
     String sql = "INSERT INTO Users (id, name, login, password, token, timeStamp) VALUES (?,?,?,?,?,?)";
     Connection connection = null;
     try {
-      connection = connectionManager.getConnection();
+      connection = connectionGetAndFree.getConnection();
       statement = connection.prepareStatement(sql);
       statement.setInt(1, entity.getId());
       statement.setString(2, entity.getName());
@@ -27,7 +29,7 @@ public class UserDaoImpl implements UserDao {
     } catch (SQLException e) {
       e.printStackTrace();
     } finally {
-      connectionManager.freeConnection(connection);
+    	connectionGetAndFree.freeConnection(connection);
     }
   }
 
@@ -38,7 +40,7 @@ public class UserDaoImpl implements UserDao {
     String sql = "SELECT id, name, login, password, token, timestamp FROM Users WHERE id = " + id;
     Connection connection = null;
     try {
-      connection = connectionManager.getConnection();
+    	connection = connectionGetAndFree.getConnection();
       statement = connection.createStatement();
       ResultSet rs = statement.executeQuery(sql);
       while (rs.next()) {
@@ -47,7 +49,7 @@ public class UserDaoImpl implements UserDao {
     } catch (SQLException e) {
       e.printStackTrace();
     } finally {
-      connectionManager.freeConnection(connection);
+    	connectionGetAndFree.freeConnection(connection);
     }
 
     return user;
@@ -61,7 +63,7 @@ public class UserDaoImpl implements UserDao {
     String sql = "SELECT id, name, login, password, token, timestamp FROM Users";
     Connection connection = null;
     try {
-      connection = connectionManager.getConnection();
+    	connection = connectionGetAndFree.getConnection();
       statement = connection.createStatement();
       ResultSet rs = statement.executeQuery(sql);
       while (rs.next()) {
@@ -71,7 +73,7 @@ public class UserDaoImpl implements UserDao {
     } catch (SQLException e) {
       e.printStackTrace();
     } finally {
-      connectionManager.freeConnection(connection);
+    	connectionGetAndFree.freeConnection(connection);
     }
 
     return listWithUser;
@@ -83,7 +85,7 @@ public class UserDaoImpl implements UserDao {
     String sql = "UPDATE Users SET name = ?, login = ?, password = ?, token = ? WHERE id = ?";
     Connection connection = null;
     try {
-      connection = connectionManager.getConnection();
+    	connection = connectionGetAndFree.getConnection();
       statement = connection.prepareStatement(sql);
       statement.setString(1, entity.getName());
       statement.setString(2, entity.getLogin());
@@ -94,7 +96,7 @@ public class UserDaoImpl implements UserDao {
     } catch (SQLException e) {
       e.printStackTrace();
     } finally {
-      connectionManager.freeConnection(connection);
+    	connectionGetAndFree.freeConnection(connection);
     }
   }
 
@@ -104,14 +106,14 @@ public class UserDaoImpl implements UserDao {
     String sql = "DELETE FROM Users WHERE id = ?";
     Connection connection = null;
     try {
-      connection = connectionManager.getConnection();
+    	connection = connectionGetAndFree.getConnection();
       statement = connection.prepareStatement(sql);
       statement.setInt(1, id);
       statement.execute();
     } catch (SQLException e) {
       e.printStackTrace();
     } finally {
-      connectionManager.freeConnection(connection);
+    	connectionGetAndFree.freeConnection(connection);
     }
   }
 
@@ -122,7 +124,7 @@ public class UserDaoImpl implements UserDao {
     String sql = "SELECT id, name, login, password, token, timestamp FROM Users WHERE login =" + "'" + login + "'";
     Connection connection = null;
     try {
-      connection = connectionManager.getConnection();
+    	connection = connectionGetAndFree.getConnection();
       statement = connection.createStatement();
       ResultSet rs = statement.executeQuery(sql);
       while (rs.next()) {
@@ -131,7 +133,7 @@ public class UserDaoImpl implements UserDao {
     } catch (SQLException e) {
       e.printStackTrace();
     } finally {
-      connectionManager.freeConnection(connection);
+    	connectionGetAndFree.freeConnection(connection);
     }
 
     return user;
@@ -160,7 +162,7 @@ public class UserDaoImpl implements UserDao {
 		User user = null;
 
 		try {
-			connection = connectionManager.getConnection();
+			connection = connectionGetAndFree.getConnection();
 			statement = connection.prepareStatement(sql);
 			statement.setString(1, token);
 			ResultSet rs = statement.executeQuery();
@@ -170,6 +172,8 @@ public class UserDaoImpl implements UserDao {
 			user = new User(id, username, null, null, null, null);
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
+		} finally {
+			connectionGetAndFree.freeConnection(connection);
 		}
 		return user;
 	}
