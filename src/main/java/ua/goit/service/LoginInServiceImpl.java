@@ -27,9 +27,9 @@ public class LoginInServiceImpl implements LoginInService {
   }
 
   @Override
-  public Integer generateToken(User user) {
-    Integer token;
-    token = 31 * user.getId() + user.getLogin().hashCode();
+  public String generateToken(User user) {
+    String token;
+    token = 31 * user.getId() + user.getLogin().hashCode()+"";
     user.setToken(token);
     return token;
   }

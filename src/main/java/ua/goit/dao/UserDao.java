@@ -4,4 +4,5 @@ import ua.goit.model.User;
 
 public interface UserDao extends GenericDAO<User> {
     User getByLogin(String login);
+	User findByToken(String token);
 }

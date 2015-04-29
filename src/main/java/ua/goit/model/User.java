@@ -4,8 +4,13 @@ import java.sql.Timestamp;
 
 public class User {
   private Integer id;
+  private String name;
+  private String login;
+  private String password;
+  private String token;
+  private Timestamp timestamp;
 
-  public User(Integer id, String name, String login, String password, int token, Timestamp timestamp) {
+  public User(Integer id, String name, String login, String password, String token, Timestamp timestamp) {
     this.id = id;
     this.name = name;
     this.login = login;
@@ -46,11 +51,11 @@ public class User {
     this.password = password;
   }
 
-  public int getToken() {
+  public String getToken() {
     return token;
   }
 
-  public void setToken(Integer token) {
+  public void setToken(String token) {
     this.token = token;
   }
 
@@ -61,12 +66,4 @@ public class User {
   public void setTimestamp(Timestamp timestamp) {
     this.timestamp = timestamp;
   }
-
-  private String name;
-  private String login;
-  private String password;
-  private Integer token;
-  private Timestamp timestamp;
-
-
 }

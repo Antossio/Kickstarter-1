@@ -1,7 +1,6 @@
 package ua.goit.service;
 
 import ua.goit.dao.Factory;
-
 import ua.goit.dao.UserDao;
 import ua.goit.model.User;
 
@@ -42,7 +41,11 @@ public class UserServiceImpl implements UserService {
 
   @Override
   public User getByLogin(String login) {
-
     return userDao.getByLogin(login);
   }
+
+  @Override
+	public User findByToken(String token) {
+		return userDao.findByToken(token);
+	}
 }

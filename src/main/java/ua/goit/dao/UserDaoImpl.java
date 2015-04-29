@@ -21,7 +21,7 @@ public class UserDaoImpl implements UserDao {
       statement.setString(2, entity.getName());
       statement.setString(3, entity.getLogin());
       statement.setString(4, entity.getPassword());
-      statement.setInt(5, entity.getToken());
+      statement.setString(5, entity.getToken());
       statement.setTimestamp(6, getCurrentTimeStamp());
       statement.execute();
     } catch (SQLException e) {
@@ -88,7 +88,7 @@ public class UserDaoImpl implements UserDao {
       statement.setString(1, entity.getName());
       statement.setString(2, entity.getLogin());
       statement.setString(3, entity.getPassword());
-      statement.setInt(4, entity.getToken());
+      statement.setString(4, entity.getToken());
       statement.setInt(5, entity.getId());
       statement.execute();
     } catch (SQLException e) {
@@ -142,7 +142,7 @@ public class UserDaoImpl implements UserDao {
     String name = rs.getString("name");
     String login = rs.getString("login");
     String password = rs.getString("password");
-    Integer token = rs.getInt("token");
+    String token = rs.getString("token");
     Timestamp timestamp = rs.getTimestamp("timeStamp");
     return new User(id, name, login, password, token, timestamp);
   }
@@ -151,4 +151,26 @@ public class UserDaoImpl implements UserDao {
     java.util.Date today = new java.util.Date();
     return new Timestamp(today.getTime());
   }
+
+  @Override
+	public User findByToken(String token) {
+		PreparedStatement statement = null;
+		String sql = "SELECT * FROM USERS WHERE token = ?";
+		Connection connection = null;
+		User user = null;
+
+		try {
+			connection = connectionManager.getConnection();
+			statement = connection.prepareStatement(sql);
+			statement.setString(1, token);
+			ResultSet rs = statement.executeQuery();
+			rs.next();
+			String username = rs.getString("name");
+			int id = rs.getInt("id");
+			user = new User(id, username, null, null, null, null);
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		return user;
+	}
 }
