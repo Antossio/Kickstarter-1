@@ -160,7 +160,6 @@ public class UserDaoImpl implements UserDao {
 		String sql = "SELECT * FROM USERS WHERE token = ?";
 		Connection connection = null;
 		User user = null;
-
 		try {
 			connection = connectionGetAndFree.getConnection();
 			statement = connection.prepareStatement(sql);

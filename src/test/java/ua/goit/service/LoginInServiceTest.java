@@ -24,7 +24,7 @@ public class LoginInServiceTest {
   public void userWithRightPassword_GetUserFromDBAndCheck_LoginOk() {
     String login = "login";
     String password = "password";
-    User user = new User(1, "user", login, password, 0, new Timestamp(new Date().getTime()));
+    User user = new User(1, "user", login, password, null, new Timestamp(new Date().getTime()));
     Mockito.when(userDao.getByLogin(login)).thenReturn(user);
     UserService userService = new UserServiceImpl(userDao);
     LoginInService loginInService = new LoginInServiceImpl(userService);

@@ -4,29 +4,21 @@
 
 <web-app>
     <servlet>
-        <servlet-name>Category</servlet-name>
-        <servlet-class>ua.goit.controller.CategoryController</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>Project</servlet-name>
-        <servlet-class>ua.goit.controller.ProjectController</servlet-class>
+        <servlet-name>mainServlet</servlet-name>
+        <servlet-class>ua.goit.servlet.MainServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>Category</servlet-name>
-        <url-pattern>/categories</url-pattern>
+        <servlet-name>mainServlet</servlet-name>
+        <url-pattern>/kickstarter/*</url-pattern>
     </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>Project</servlet-name>
-        <url-pattern>/projects</url-pattern>
-    </servlet-mapping>
-    
-    	<filter>
-		<filter-name>UserFilter</filter-name>
-		<filter-class>ua.goit.filter.UserFilter</filter-class>
-	</filter>
 
-	<filter-mapping>
-		<filter-name>UserFilter</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>
+    <filter>
+        <filter-name>UserFilter</filter-name>
+        <filter-class>ua.goit.filter.UserFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>UserFilter</filter-name>
+        <url-pattern>/kickstarter/*</url-pattern>
+    </filter-mapping>
 </web-app>

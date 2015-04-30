@@ -1,6 +1,9 @@
 package ua.goit.dao;
 
+import ua.goit.model.Category;
 import ua.goit.model.Project;
+import ua.goit.service.CategoryService;
+import ua.goit.service.CategoryServiceImpl;
 import ua.goit.service.ProjectService;
 import ua.goit.service.ProjectServiceImpl;
 
@@ -33,11 +36,11 @@ public class test {
 //        projectService.add(new Project(7, "gamesProject1", games, alex, current));
 //        projectService.add(new Project(8, "gamesProject1", games, alex, current));
         ProjectDao projectDao = new ProjectDaoImpl();
-
-      ProjectService projectService = new ProjectServiceImpl(projectDao);
-        List<Project> projectList = projectService.getProjectsByCategoryId(5);
-        for (Project project : projectList) {
-            System.out.println(project.getProjectName());
+      CategoryDao categoryDao = new CategoryDaoImpl();
+      CategoryService categoryService = new CategoryServiceImpl(categoryDao);
+      List<Category> list = categoryService.getAll();
+        for (Category category : list) {
+            System.out.println(category.getCategoryName());
         }
     }
   }

@@ -1,44 +1,43 @@
 package ua.goit.controller;
 
+
 import ua.goit.dao.CategoryDao;
 import ua.goit.dao.Factory;
+import ua.goit.dao.ProjectDao;
 import ua.goit.model.Category;
+import ua.goit.model.Project;
+import ua.goit.model.User;
 import ua.goit.service.CategoryService;
 import ua.goit.service.CategoryServiceImpl;
+import ua.goit.service.ProjectService;
+import ua.goit.service.ProjectServiceImpl;
+import ua.goit.servlet.Request;
+import ua.goit.view.ModelAndView;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
-public class CategoryController extends HttpServlet {
+public class CategoryController implements Controller {
   @Override
-  protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    resp.setContentType("text/html");
+  public ModelAndView handleRequest(Request request) {
     CategoryDao categoryDao = Factory.getDaoFactory().getCategoryDao();
+    ProjectDao projectDao = Factory.getDaoFactory().getProjectDao();
     CategoryService categoryService = new CategoryServiceImpl(categoryDao);
+    ProjectService projectService = new ProjectServiceImpl(projectDao);
     List<Category> categories = categoryService.getAll();
-    String url = "/categories.jsp";
-    RequestDispatcher dispatcher = req.getRequestDispatcher(url);
-    req.setAttribute("categories", categories);
-    dispatcher.forward(req, resp);
-  }
-
-  @Override
-  protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    resp.setContentType("text/html");
-    String categoryName = req.getParameter("category_name");
-    CategoryDao categoryDao = Factory.getDaoFactory().getCategoryDao();
-    CategoryService categoryService = new CategoryServiceImpl(categoryDao);
-    categoryService.add(new Category(null, categoryName, null));
-    List<Category> categories = categoryService.getAll();
-    String url = "/categories.jsp";
-    RequestDispatcher dispatcher = req.getRequestDispatcher(url);
-    req.setAttribute("categories", categories);
-    dispatcher.forward(req, resp);
-
+    ModelAndView modelAndView = new ModelAndView("/categories.jsp");
+    if (request.getParameters().isEmpty()) {
+      modelAndView.addAttribute("categories", categories);
+    } else {
+      String categoryId = request.getParameters().get("category");
+      List<Project> projects = projectService.
+              getProjectsByCategoryId(Integer.valueOf(categoryId));
+      modelAndView.addAttribute("projects", projects);
+    }
+    return modelAndView;
   }
 }
+
+

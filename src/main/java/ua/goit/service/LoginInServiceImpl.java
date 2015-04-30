@@ -29,7 +29,7 @@ public class LoginInServiceImpl implements LoginInService {
   @Override
   public String generateToken(User user) {
     String token;
-    token = 31 * user.getId() + user.getLogin().hashCode()+"";
+    token = 31 * user.getId() + user.getLogin().hashCode() + "";
     user.setToken(token);
     return token;
   }
