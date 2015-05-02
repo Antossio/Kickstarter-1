@@ -1,5 +1,6 @@
 package ua.goit.servlet;
 
+import org.apache.log4j.Logger;
 import ua.goit.controller.CategoryController;
 import ua.goit.controller.Controller;
 import ua.goit.controller.ErrorController;
@@ -16,6 +17,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MainServlet extends HttpServlet {
+  private final static Logger logger = Logger.getLogger(MainServlet.class);
   private final Map<Request, Controller> controllers = new HashMap();
 
   @Override
@@ -27,6 +29,7 @@ public class MainServlet extends HttpServlet {
 
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    logger.info("Start handling request from: " + req.getRequestURI());
     handleRequest(req, resp);
   }
 

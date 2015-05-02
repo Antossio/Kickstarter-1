@@ -35,7 +35,7 @@ public class test {
 //        projectService.add(new Project(6, "spaceProject1", space, alex, current));
 //        projectService.add(new Project(7, "gamesProject1", games, alex, current));
 //        projectService.add(new Project(8, "gamesProject1", games, alex, current));
-        ProjectDao projectDao = new ProjectDaoImpl();
+      ProjectDao projectDao = new ProjectDaoImpl();
       CategoryDao categoryDao = new CategoryDaoImpl();
       CategoryService categoryService = new CategoryServiceImpl(categoryDao);
       List<Category> list = categoryService.getAll();
