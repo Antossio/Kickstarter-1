@@ -34,6 +34,11 @@
       <artifactId>mockito-all</artifactId>
       <version>1.9.5</version>
     </dependency>
+    <dependency>
+      <groupId>javax.mail</groupId>
+      <artifactId>mail</artifactId>
+      <version>1.4</version>
+    </dependency>
   </dependencies>
   <build>
     <plugins>
@@ -46,7 +51,6 @@
           <target>1.7</target>
         </configuration>
       </plugin>
-
       <plugin>
         <groupId>org.apache.tomcat.maven</groupId>
         <artifactId>tomcat7-maven-plugin</artifactId>
