@@ -4,6 +4,7 @@ package ua.goit.controller;
 import ua.goit.dao.CategoryDao;
 import ua.goit.dao.Factory;
 import ua.goit.dao.ProjectDao;
+import ua.goit.factory.DaoFactory;
 import ua.goit.model.Category;
 import ua.goit.model.Project;
 import ua.goit.model.User;
@@ -22,7 +23,8 @@ import java.util.List;
 public class CategoryController implements Controller {
   @Override
   public ModelAndView handleRequest(Request request) {
-    CategoryDao categoryDao = Factory.getDaoFactory().getCategoryDao();
+
+    CategoryDao categoryDao = DaoFactory.getInstance().getDao(CategoryDao.class);
     ProjectDao projectDao = Factory.getDaoFactory().getProjectDao();
     CategoryService categoryService = new CategoryServiceImpl(categoryDao);
     ProjectService projectService = new ProjectServiceImpl(projectDao);
