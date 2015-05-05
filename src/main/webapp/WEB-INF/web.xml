@@ -6,6 +6,10 @@
     <servlet>
         <servlet-name>mainServlet</servlet-name>
         <servlet-class>ua.goit.servlet.MainServlet</servlet-class>
+        <init-param>
+            <param-name>log4jPropertiesLocation</param-name>
+            <param-value>log4j.properties</param-value>
+        </init-param>
     </servlet>
     <servlet-mapping>
         <servlet-name>mainServlet</servlet-name>

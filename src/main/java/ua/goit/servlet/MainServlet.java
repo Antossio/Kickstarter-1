@@ -3,6 +3,11 @@ package ua.goit.servlet;
 import ua.goit.annotation.ValidateAnnotation;
 import ua.goit.controller.*;
 import ua.goit.validator.AbstractValidator;
+import org.apache.log4j.Logger;
+import ua.goit.controller.CategoryController;
+import ua.goit.controller.Controller;
+import ua.goit.controller.ErrorController;
+import ua.goit.controller.UserController;
 import ua.goit.view.ModelAndView;
 
 import javax.servlet.RequestDispatcher;
@@ -16,7 +21,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MainServlet extends HttpServlet {
-    private final Map<Request, Controller> controllers = new HashMap();
+  private final static Logger logger = Logger.getLogger(MainServlet.class);
+  private final Map<Request, Controller> controllers = new HashMap();
+
 
     @Override
     public void init() throws ServletException {
@@ -27,10 +34,12 @@ public class MainServlet extends HttpServlet {
         controllers.put(Request.create(Method.GET, "/kickstarter/activation"), new ActivationController());
     }
 
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        handleRequest(req, resp);
-    }
+
+  @Override
+  protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    logger.info("Start handling request from: " + req.getRequestURI());
+    handleRequest(req, resp);
+  }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
