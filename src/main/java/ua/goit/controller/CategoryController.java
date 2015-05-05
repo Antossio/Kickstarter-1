@@ -1,6 +1,7 @@
 package ua.goit.controller;
 
 
+import org.apache.log4j.Logger;
 import ua.goit.dao.CategoryDao;
 import ua.goit.dao.Factory;
 import ua.goit.dao.ProjectDao;
@@ -20,8 +21,11 @@ import java.util.Date;
 import java.util.List;
 
 public class CategoryController implements Controller {
+  private static final Logger logger = Logger.getLogger(CategoryController.class);
+
   @Override
   public ModelAndView handleRequest(Request request) {
+    logger.info("Start execute" + CategoryController.class.getName());
     CategoryDao categoryDao = Factory.getDaoFactory().getCategoryDao();
     ProjectDao projectDao = Factory.getDaoFactory().getProjectDao();
     CategoryService categoryService = new CategoryServiceImpl(categoryDao);
