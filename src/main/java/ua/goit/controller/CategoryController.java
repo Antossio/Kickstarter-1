@@ -3,12 +3,10 @@ package ua.goit.controller;
 
 import org.apache.log4j.Logger;
 import ua.goit.dao.CategoryDao;
-import ua.goit.dao.Factory;
 import ua.goit.dao.ProjectDao;
 import ua.goit.factory.DaoFactory;
 import ua.goit.model.Category;
 import ua.goit.model.Project;
-import ua.goit.model.User;
 import ua.goit.service.CategoryService;
 import ua.goit.service.CategoryServiceImpl;
 import ua.goit.service.ProjectService;
@@ -16,9 +14,6 @@ import ua.goit.service.ProjectServiceImpl;
 import ua.goit.servlet.Request;
 import ua.goit.view.ModelAndView;
 
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class CategoryController implements Controller {
@@ -28,7 +23,7 @@ public class CategoryController implements Controller {
   public ModelAndView handleRequest(Request request) {
     logger.info("Start execute" + CategoryController.class.getName());
     CategoryDao categoryDao = DaoFactory.getInstance().getDao(CategoryDao.class);
-    ProjectDao projectDao = Factory.getDaoFactory().getProjectDao();
+    ProjectDao projectDao = DaoFactory.getInstance().getDao(ProjectDao.class);
     CategoryService categoryService = new CategoryServiceImpl(categoryDao);
     ProjectService projectService = new ProjectServiceImpl(projectDao);
     List<Category> categories = categoryService.getAll();

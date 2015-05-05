@@ -3,6 +3,7 @@ package ua.goit.dao;
 import ua.goit.factory.ConnectionGetAndFree;
 import ua.goit.factory.ConnectionPoolNames;
 import ua.goit.factory.DBConnectionManager;
+import ua.goit.factory.DaoFactory;
 import ua.goit.model.Category;
 import ua.goit.model.Project;
 import ua.goit.model.User;
@@ -14,7 +15,7 @@ import java.util.List;
 
 public class ProjectDaoImpl implements ProjectDao {
 	private ConnectionGetAndFree connectionGetAndFree = new ConnectionGetAndFree(ConnectionPoolNames.IDB);
-	private final DaoFactory daoFactory = Factory.getDaoFactory();
+	private final DaoFactory daoFactory = DaoFactory.getInstance();
 
 	@Override
 	public void add(Project entity) {
@@ -46,8 +47,8 @@ public class ProjectDaoImpl implements ProjectDao {
 			connection = connectionGetAndFree.getConnection();
 			statement = connection.createStatement();
 			ResultSet rs = statement.executeQuery(sql);
-			CategoryDao categoryDao = daoFactory.getCategoryDao();
-			UserDao userDao = daoFactory.getUserDao();
+			CategoryDao categoryDao = daoFactory.getDao(CategoryDao.class);
+			UserDao userDao = daoFactory.getDao(UserDao.class);
 			while (rs.next()) {
 				project = getProject(rs, categoryDao, userDao);
 			}
@@ -71,8 +72,8 @@ public class ProjectDaoImpl implements ProjectDao {
 			connection = connectionGetAndFree.getConnection();
 			statement = connection.createStatement();
 			ResultSet rs = statement.executeQuery(sql);
-			CategoryDao categoryDao = daoFactory.getCategoryDao();
-			UserDao userDao = daoFactory.getUserDao();
+			CategoryDao categoryDao = daoFactory.getDao(CategoryDao.class);
+			UserDao userDao = daoFactory.getDao(UserDao.class);
 			while (rs.next()) {
 				project = getProject(rs, categoryDao, userDao);
 				listWithProject.add(project);
@@ -134,8 +135,8 @@ public class ProjectDaoImpl implements ProjectDao {
 			connection = connectionGetAndFree.getConnection();
 			statement = connection.prepareStatement(sql);
 			ResultSet rs = statement.executeQuery(sql);
-			CategoryDao categoryDao = daoFactory.getCategoryDao();
-			UserDao userDao = daoFactory.getUserDao();
+			CategoryDao categoryDao = daoFactory.getDao(CategoryDao.class);
+			UserDao userDao = daoFactory.getDao(UserDao.class);
 			while (rs.next()) {
 				project = getProject(rs, categoryDao, userDao);
 				listWithProject.add(project);

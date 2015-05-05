@@ -1,6 +1,5 @@
 package ua.goit.service;
 
-import ua.goit.dao.Factory;
 import ua.goit.dao.ProjectDao;
 import ua.goit.model.Project;
 

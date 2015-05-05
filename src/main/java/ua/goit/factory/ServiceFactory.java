@@ -16,6 +16,9 @@ public class ServiceFactory {
     typeMap = new HashMap<>();
     typeMap.put(CategoryService.class, CategoryServiceImpl.class);
     typeMap.put(ProjectService.class, ProjectServiceImpl.class);
+    typeMap.put(UserService.class, UserServiceImpl.class);
+    typeMap.put(LoginInService.class, LoginInServiceImpl.class);
+    typeMap.put(MailServiceSending.class, MailServiceSendingImpl.class);
   }
   public static ServiceFactory getInstance() {
     return instance;

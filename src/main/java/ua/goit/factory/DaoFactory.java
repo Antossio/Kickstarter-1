@@ -1,9 +1,6 @@
 package ua.goit.factory;
 
-import ua.goit.dao.CategoryDao;
-import ua.goit.dao.CategoryDaoImpl;
-import ua.goit.dao.UserDao;
-import ua.goit.dao.UserDaoImpl;
+import ua.goit.dao.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,6 +14,7 @@ public class DaoFactory {
     typeMap = new HashMap<>();
     typeMap.put(UserDao.class, UserDaoImpl.class);
     typeMap.put(CategoryDao.class, CategoryDaoImpl.class);
+    typeMap.put(ProjectDao.class, ProjectDaoImpl.class);
   }
 
   public static DaoFactory getInstance() {

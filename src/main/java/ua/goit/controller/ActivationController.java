@@ -1,8 +1,8 @@
 package ua.goit.controller;
 
 import org.apache.log4j.Logger;
-import ua.goit.dao.Factory;
 import ua.goit.dao.UserDao;
+import ua.goit.factory.DaoFactory;
 import ua.goit.model.User;
 import ua.goit.service.UserService;
 import ua.goit.service.UserServiceImpl;
@@ -15,7 +15,7 @@ public class ActivationController implements Controller {
   @Override
   public ModelAndView handleRequest(Request request) {
     logger.info("Start execute" + ActivationController.class.getName());
-    UserDao userDao = Factory.getDaoFactory().getUserDao();
+    UserDao userDao = DaoFactory.getInstance().getDao(UserDao.class);
     UserService userService = new UserServiceImpl(userDao);
     ModelAndView error = new ModelAndView("/error.jsp");
 
