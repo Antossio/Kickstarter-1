@@ -11,6 +11,7 @@ import ua.goit.controller.UserController;
 import ua.goit.view.ModelAndView;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -24,14 +25,18 @@ public class MainServlet extends HttpServlet {
   private final static Logger logger = Logger.getLogger(MainServlet.class);
   private final Map<Request, Controller> controllers = new HashMap();
 
-
   @Override
   public void init() throws ServletException {
     super.init();
+    ServletContext context = getServletContext();
+    Controller categoryController = (Controller) context.getAttribute("categoryController");
+    Controller signUpController = (Controller) context.getAttribute("signUpController");
+    Controller activationController = (Controller) context.getAttribute("activationController");
+
     controllers.put(Request.create(Method.GET, "/user"), new UserController());
-    controllers.put(Request.create(Method.GET, "/kickstarter/categories"), new CategoryController());
-    controllers.put(Request.create(Method.POST, "/kickstarter/signup"), new SignUpController());
-    controllers.put(Request.create(Method.GET, "/kickstarter/activation"), new ActivationController());
+    controllers.put(Request.create(Method.GET, "/kickstarter/categories"), categoryController);
+    controllers.put(Request.create(Method.POST, "/kickstarter/signup"), signUpController);
+    controllers.put(Request.create(Method.GET, "/kickstarter/activation"), activationController);
   }
 
 

@@ -18,14 +18,17 @@ import java.util.List;
 
 public class CategoryController implements Controller {
   private static final Logger logger = Logger.getLogger(CategoryController.class);
+  private final CategoryService categoryService;
+  private final ProjectService projectService;
+
+  public CategoryController(CategoryService categoryService, ProjectService projectService) {
+    this.categoryService = categoryService;
+    this.projectService = projectService;
+  }
 
   @Override
   public ModelAndView handleRequest(Request request) {
     logger.info("Start execute" + CategoryController.class.getName());
-    CategoryDao categoryDao = DaoFactory.getInstance().getDao(CategoryDao.class);
-    ProjectDao projectDao = DaoFactory.getInstance().getDao(ProjectDao.class);
-    CategoryService categoryService = new CategoryServiceImpl(categoryDao);
-    ProjectService projectService = new ProjectServiceImpl(projectDao);
     List<Category> categories = categoryService.getAll();
     ModelAndView modelAndView = new ModelAndView("/categories.jsp");
     if (request.getParameters().isEmpty()) {

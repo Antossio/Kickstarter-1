@@ -11,6 +11,11 @@ import ua.goit.view.ModelAndView;
 
 public class ActivationController implements Controller {
   private final static Logger logger = Logger.getLogger(ActivationController.class);
+  private final UserService userService;
+
+  public ActivationController(UserService userService) {
+    this.userService = userService;
+  }
 
   @Override
   public ModelAndView handleRequest(Request request) {

@@ -22,13 +22,15 @@ import java.util.Random;
 @ValidateAnnotation(name = "formValidator", value = FormValidator.class)
 public class SignUpController implements Controller {
   private static final Logger logger = Logger.getLogger(SignUpController.class);
+  private final UserService userService;
+
+  public SignUpController(UserService userService) {
+    this.userService = userService;
+  }
 
   @Override
   public ModelAndView handleRequest(Request request) {
     logger.info("Start execute" + SignUpController.class.getName());
-    UserDao userDao = DaoFactory.getInstance().getDao(UserDao.class);
-    UserService userService = new UserServiceImpl(userDao);
-
     Map<String, String> parameters = request.getParameters();
     String name = parameters.get("name");
     String login = parameters.get("login");
