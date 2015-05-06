@@ -1,0 +1,14 @@
+@CHARSET "UTF-8";
+.menu {
+	width:20%;
+    background:#FCF8E3;
+    float:left;
+     min-height:500px;
+}
+
+.main {
+	width:80%;
+    background:#D9EDF7;
+    float:rigth;
+     min-height:500px;
+}
