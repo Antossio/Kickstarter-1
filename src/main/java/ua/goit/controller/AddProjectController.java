@@ -1,28 +1,48 @@
 package ua.goit.controller;
 
 import java.util.List;
-import ua.goit.dao.CategoryDao;
+import java.util.Map;
+
+import org.apache.log4j.Logger;
+
 import ua.goit.model.Category;
+import ua.goit.model.Project;
+import ua.goit.model.User;
 import ua.goit.service.CategoryService;
-import ua.goit.service.CategoryServiceImpl;
+import ua.goit.service.ProjectService;
+import ua.goit.service.UserService;
 import ua.goit.servlet.Request;
 import ua.goit.view.ModelAndView;
 
 public class AddProjectController implements Controller{
+	private static final Logger logger = Logger.getLogger(AddProjectController.class);
+	private final ProjectService projectService;
 	private final CategoryService categoryService;
+	private final UserService userService;
 	
-	public AddProjectController(CategoryService categoryService) {
-	this.categoryService = categoryService;
-	}
 	
+
+	public AddProjectController(ProjectService projectService, CategoryService categoryService, UserService userService) {
+		this.projectService = projectService;
+		this.categoryService = categoryService;
+		this.userService = userService;		
+	}	
+
 	@Override
 	public ModelAndView handleRequest(Request request) {
-		List<Category> categories = categoryService.getAll();
-		ModelAndView modelAndView = new ModelAndView("/addProject.jsp");
-		if (request.getParameters().isEmpty()) {
-			modelAndView.addAttribute("categories", categories);
-		} 
+		Map<String, String> param = request.getParameters();
+		int categoryId = Integer.parseInt(param.get("categories"));
+		int userId = Integer.parseInt(param.get("userID"));
+		Category category = categoryService.getById(categoryId);
+		User user = userService.getById(userId);
+		String name = param.get("projectName");
+		String shortDesc = param.get("projectShortDesc");
+		String longDesc = param.get("projectLongDesc");
+		String link = param.get("img");
+		projectService.add(new Project(name, category, user, shortDesc, longDesc, link));
+		ModelAndView modelAndView = new ModelAndView("/listProject.jsp");
+		List<Project> projectList = projectService.getByUserId(userId);
+		modelAndView.addAttribute("projects", projectList);
 		return modelAndView;
 	}
-
 }

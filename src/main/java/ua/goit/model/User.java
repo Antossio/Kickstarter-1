@@ -28,6 +28,7 @@ public class User {
     this.password = password;
     this.email = email;
     this.activationKey = activationKey;
+    this.token = "0";
   }
 
   public User(Integer id, String name, String login, String password, String token, Timestamp timestamp, String email, String activationKey, Integer activeFlag) {

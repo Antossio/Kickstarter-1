@@ -24,6 +24,11 @@ public class ProjectServiceImpl implements ProjectService {
   }
 
   @Override
+  public List<Project> getByUserId(Integer id) {
+    return projectDao.getByUserId(id);
+  }
+  
+  @Override
   public List<Project> getAll() {
     return projectDao.getAll();
   }

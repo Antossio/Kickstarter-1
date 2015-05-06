@@ -42,8 +42,10 @@ public class ModelAndView {
     return cookie;
   }
 
-  public void setCookie(String name, String taken) {
-    cookie = new Cookie(name, taken);
+  public ModelAndView setCookie(String name, String token) {
+    cookie = new Cookie(name, token);
+    hasCookie = true;
+    return this;
   }
 
   public String getView() {

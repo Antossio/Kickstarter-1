@@ -26,7 +26,7 @@ public class UserDaoImpl implements UserDao {
       statement.setString(1, entity.getName());
       statement.setString(2, entity.getLogin());
       statement.setString(3, entity.getPassword());
-      statement.setString(4, "0");
+      statement.setString(4, entity.getToken());
       statement.setString(5, entity.getEmail());
       statement.setString(6, entity.getActivationKey());
       statement.execute();

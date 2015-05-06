@@ -25,7 +25,7 @@ public class ProjectDaoImpl implements ProjectDao {
   @Override
   public void add(Project entity) {
     PreparedStatement statement = null;
-    String sql = "insert into Project (name, timeStamp, Category_id, Users_id) values(?,?,?,?)";
+    String sql = "insert into Project (name, timeStamp, Category_id, Users_id, shortDesc, longDesc, link) values(?,?,?,?,?,?,?)";
     Connection connection = null;
     try {
       connection = connectionGetAndFree.getConnection();
@@ -34,6 +34,9 @@ public class ProjectDaoImpl implements ProjectDao {
       statement.setTimestamp(2, getCurrentTimeStamp());
       statement.setInt(3, entity.getCategory().getId());
       statement.setInt(4, entity.getUser().getId());
+      statement.setString(5, entity.getShortDesc());
+      statement.setString(6, entity.getLongDesc());
+      statement.setString(7, entity.getLink());
       statement.execute();
     } catch (SQLException e) {
       e.printStackTrace();
@@ -46,7 +49,7 @@ public class ProjectDaoImpl implements ProjectDao {
   public Project getById(Integer id) {
     Statement statement = null;
     Project project = null;
-    String sql = "SELECT id, name, Category_id, Users_id, timeStamp, FROM Project WHERE id = " + id;
+    String sql = "SELECT id, name, Category_id, Users_id, timeStamp, shortDesc, longDesc, link FROM Project WHERE id = " + id;
     Connection connection = null;
     try {
       connection = connectionGetAndFree.getConnection();
@@ -65,11 +68,34 @@ public class ProjectDaoImpl implements ProjectDao {
   }
 
   @Override
+  public List<Project> getByUserId(Integer id) {
+    Statement statement = null;
+    Project project = null;
+    List<Project> listWithProject = new ArrayList<>();
+    String sql = "SELECT id, name, Category_id, Users_id, timeStamp, shortDesc, longDesc, link FROM Project WHERE Users_id = " + id;
+    Connection connection = null;
+    try {
+      connection = connectionGetAndFree.getConnection();
+      statement = connection.createStatement();
+      ResultSet rs = statement.executeQuery(sql);
+      while (rs.next()) {
+        project = getProject(rs, categoryDao, userDao);
+        listWithProject.add(project);
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    } finally {
+      connectionGetAndFree.freeConnection(connection);
+    }
+    return listWithProject;
+  }
+  
+    @Override
   public List<Project> getAll() {
     Statement statement = null;
     Project project = null;
     List<Project> listWithProject = new ArrayList<>();
-    String sql = "SELECT id, name, Category_id, Users_id, timeStamp, FROM Project";
+    String sql = "SELECT id, name, Category_id, Users_id, timeStamp, shortDesc, longDesc, link FROM Project";
     Connection connection = null;
     try {
       connection = connectionGetAndFree.getConnection();
@@ -91,7 +117,7 @@ public class ProjectDaoImpl implements ProjectDao {
   @Override
   public void update(Project entity) {
     PreparedStatement statement = null;
-    String sql = "UPDATE Project SET name = ?, Category_id =?, Users_id = ? WHERE id = ?";
+    String sql = "UPDATE Project SET name = ?, Category_id =?, Users_id = ?, sortDesc = ?, longDesc = ?, link = ? WHERE id = ?";
     Connection connection = null;
     try {
       connection = connectionGetAndFree.getConnection();
@@ -99,7 +125,10 @@ public class ProjectDaoImpl implements ProjectDao {
       statement.setString(1, entity.getProjectName());
       statement.setInt(2, entity.getCategory().getId());
       statement.setInt(3, entity.getUser().getId());
-      statement.setInt(4, entity.getId());
+      statement.setString(4, entity.getShortDesc());
+      statement.setString(5, entity.getLongDesc());
+      statement.setString(6, entity.getLink());
+      statement.setInt(7, entity.getId());
       statement.execute();
     } catch (SQLException e) {
       e.printStackTrace();
@@ -131,7 +160,7 @@ public class ProjectDaoImpl implements ProjectDao {
     Project project = null;
     List<Project> listWithProject = new ArrayList<>();
     Connection connection = null;
-    String sql = "SELECT id, name, timeStamp, Category_id, Users_id FROM Project WHERE Category_id = " + categoryId;
+    String sql = "SELECT id, name, timeStamp, Category_id, Users_id, shortDesc, longDesc, link FROM Project WHERE Category_id = " + categoryId;
     try {
       connection = connectionGetAndFree.getConnection();
       statement = connection.prepareStatement(sql);
@@ -162,7 +191,10 @@ public class ProjectDaoImpl implements ProjectDao {
     Category category = categoryDao.getById(categoryId);
     User user = userDao.getById(userId);
     Timestamp timestamp = rs.getTimestamp("timeStamp");
-    return new Project(id, name, category, user, timestamp);
+    String shortDesc = rs.getString("shortDesc");
+    String longDesc = rs.getString("longDesc");
+    String link = rs.getString("link");
+    return new Project(id, name, category, user, timestamp, shortDesc, longDesc, link);
   }
 }
 
