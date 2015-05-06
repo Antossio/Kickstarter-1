@@ -3,7 +3,6 @@ package ua.goit.controller;
 import org.apache.log4j.Logger;
 import ua.goit.annotation.ValidateAnnotation;
 import ua.goit.dao.UserDao;
-import ua.goit.factory.DaoFactory;
 import ua.goit.model.User;
 import ua.goit.service.MailServiceSending;
 import ua.goit.service.MailServiceSendingImpl;

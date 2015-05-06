@@ -9,7 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDaoImpl implements UserDao {
-  private ConnectionGetAndFree connectionGetAndFree = new ConnectionGetAndFree(ConnectionPoolNames.IDB);
+  private final ConnectionGetAndFree connectionGetAndFree;
+
+  public UserDaoImpl(ConnectionGetAndFree connectionGetAndFree) {
+    this.connectionGetAndFree = connectionGetAndFree;
+  }
 
   @Override
   public void add(User entity) {

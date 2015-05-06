@@ -4,7 +4,6 @@ package ua.goit.controller;
 import org.apache.log4j.Logger;
 import ua.goit.dao.CategoryDao;
 import ua.goit.dao.ProjectDao;
-import ua.goit.factory.DaoFactory;
 import ua.goit.model.Category;
 import ua.goit.model.Project;
 import ua.goit.service.CategoryService;

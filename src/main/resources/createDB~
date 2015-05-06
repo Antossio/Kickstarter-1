@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS `kickstarter`.`Users` (
   PRIMARY KEY (`id`),
   UNIQUE INDEX `login_UNIQUE` (`login` ASC),
   UNIQUE INDEX `email_UNIQUE` (`email` ASC),
-  UNIQUE INDEX `token_UNIQUE` (`token` ASC),
+  UNIQUE INDEX `token_UNIQUE` (`token` ASC))
   UNIQUE INDEX `activationKey_UNIQUE` (`activationKey` ASC))
 ENGINE = InnoDB;
 -- -----------------------------------------------------

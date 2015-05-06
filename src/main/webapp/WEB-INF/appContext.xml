@@ -12,6 +12,8 @@
             </map>
         </property>
     </bean>
-
+    <bean id="UserFilter" class="ua.goit.filter.UserFilter">
+        <constructor-arg ref="userService"/>
+    </bean>
     <import resource="controllerContext.xml"/>
 </beans>
