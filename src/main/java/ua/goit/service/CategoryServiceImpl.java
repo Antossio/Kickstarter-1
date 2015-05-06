@@ -1,7 +1,6 @@
 package ua.goit.service;
 
 import ua.goit.dao.CategoryDao;
-import ua.goit.dao.Factory;
 import ua.goit.model.Category;
 
 import java.util.List;

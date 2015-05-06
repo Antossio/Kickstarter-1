@@ -17,14 +17,16 @@ import ua.goit.model.User;
 import ua.goit.service.*;
 
 public class UserFilter implements Filter {
-  private UserDao userDao;
-  private UserService userService;
+  private final UserService userService;
   private String token = "user";
+
+  public UserFilter(UserService userService) {
+    this.userService = userService;
+  }
 
   @Override
   public void init(FilterConfig filterConfig) throws ServletException {
-    userDao = new UserDaoImpl();
-    userService = new UserServiceImpl(userDao);
+
   }
 
   @Override

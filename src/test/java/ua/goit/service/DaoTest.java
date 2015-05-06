@@ -7,7 +7,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import ua.goit.dao.CategoryDao;
-import ua.goit.dao.Factory;
 import ua.goit.model.Category;
 import java.sql.Timestamp;
 import java.util.ArrayList;

@@ -1,7 +1,7 @@
 package ua.goit.controller;
 
+import org.apache.log4j.Logger;
 import ua.goit.annotation.ValidateAnnotation;
-import ua.goit.dao.Factory;
 import ua.goit.dao.UserDao;
 import ua.goit.model.User;
 import ua.goit.service.MailServiceSending;
@@ -20,61 +20,66 @@ import java.util.Random;
 
 @ValidateAnnotation(name = "formValidator", value = FormValidator.class)
 public class SignUpController implements Controller {
-    @Override
-    public ModelAndView handleRequest(Request request) {
-        UserDao userDao = Factory.getDaoFactory().getUserDao();
-        UserService userService = new UserServiceImpl(userDao);
+  private static final Logger logger = Logger.getLogger(SignUpController.class);
+  private final UserService userService;
 
-        Map<String, String> parameters = request.getParameters();
-        String name = parameters.get("name");
-        String login = parameters.get("login");
-        String password = parameters.get("password");
-        String email = parameters.get("email");
+  public SignUpController(UserService userService) {
+    this.userService = userService;
+  }
 
-        String activationKey = generateActivationKey(login, email);
-        Properties properties = loadProperties();
-        Enumeration propertiesNames = properties.propertyNames();
+  @Override
+  public ModelAndView handleRequest(Request request) {
+    logger.info("Start execute" + SignUpController.class.getName());
+    Map<String, String> parameters = request.getParameters();
+    String name = parameters.get("name");
+    String login = parameters.get("login");
+    String password = parameters.get("password");
+    String email = parameters.get("email");
 
-        String serverEmail = "";
-        String serverPass = "";
-        String domain = "";
+    String activationKey = generateActivationKey(login, email);
+    Properties properties = loadProperties();
+    Enumeration propertiesNames = properties.propertyNames();
 
-        while (propertiesNames.hasMoreElements()) {
-            switch ((String) propertiesNames.nextElement()) {
-                case "email":
-                    serverEmail = properties.getProperty("email");
-                    break;
-                case "password":
-                    serverPass = properties.getProperty("password");
-                    break;
-                case "domain":
-                    domain = properties.getProperty("domain");
-                    break;
-                default:
-                    break;
-            }
-        }
+    String serverEmail = "";
+    String serverPass = "";
+    String domain = "";
 
-        userService.add(new User(name, login, password, email, activationKey));
-        MailServiceSending mailServiceSending = new MailServiceSendingImpl(serverEmail, serverPass);
-        mailServiceSending.send("Activation letter!", domain + "kickstarter/activation?key=" + activationKey, serverEmail, email);
-        ModelAndView modelAndView = new ModelAndView("/confirm_registration.jsp");
-        return modelAndView;
+    while (propertiesNames.hasMoreElements()) {
+      switch ((String) propertiesNames.nextElement()) {
+        case "email":
+          serverEmail = properties.getProperty("email");
+          break;
+        case "password":
+          serverPass = properties.getProperty("password");
+          break;
+        case "domain":
+          domain = properties.getProperty("domain");
+          break;
+        default:
+          break;
+      }
     }
 
-    private Properties loadProperties() {
-        InputStream is = getClass().getResourceAsStream("/ms.properties");
-        Properties msProps = new Properties();
-        try {
-            msProps.load(is);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-        return msProps;
-    }
+    userService.add(new User(name, login, password, email, activationKey));
+    MailServiceSending mailServiceSending = new MailServiceSendingImpl(serverEmail, serverPass);
+    mailServiceSending.send("Activation letter!", domain + "kickstarter/activation?key=" + activationKey, serverEmail, email);
+    ModelAndView modelAndView = new ModelAndView("/confirm_registration.jsp");
+    return modelAndView;
+  }
 
-    private String generateActivationKey(String login, String email) {
-        return new Random().nextInt(Integer.MAX_VALUE) + "";
-
+  private Properties loadProperties() {
+    InputStream is = getClass().getResourceAsStream("/ms.properties");
+    Properties msProps = new Properties();
+    try {
+      msProps.load(is);
+    } catch (Exception e) {
+      throw new RuntimeException(e);
     }
+    return msProps;
+  }
+
+  private String generateActivationKey(String login, String email) {
+    return new Random().nextInt(Integer.MAX_VALUE) + "";
+
+  }
 }
