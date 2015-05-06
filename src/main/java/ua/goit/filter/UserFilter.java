@@ -17,35 +17,37 @@ import ua.goit.model.User;
 import ua.goit.service.*;
 
 public class UserFilter implements Filter {
-  private final UserService userService;
-  private String token = "user";
+	private final UserService userService;
+	private String token = "user";
 
-  public UserFilter(UserService userService) {
-    this.userService = userService;
-  }
+	public UserFilter(UserService userService) {
+		this.userService = userService;
+	}
 
-  @Override
-  public void init(FilterConfig filterConfig) throws ServletException {
+	@Override
+	public void init(FilterConfig filterConfig) throws ServletException {
 
-  }
+	}
 
-  @Override
-  public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-    HttpServletRequest req = (HttpServletRequest) request;
-    Cookie[] cookies = req.getCookies();
-    String tokenValue = null;
-    for (Cookie c : cookies) {
-      if (token.equals(c.getName())) {
-        tokenValue = c.getValue();
-        User user = userService.findByToken(tokenValue);
-        req.setAttribute("userID", user.getId());
-      }
-    }
-    chain.doFilter(req, response);
-  }
+	@Override
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+		HttpServletRequest req = (HttpServletRequest) request;
+		Cookie[] cookies = req.getCookies();
+		String tokenValue = null;
+		if (cookies != null) {
+			for (Cookie c : cookies) {
+				if (token.equals(c.getName())) {
+					tokenValue = c.getValue();
+					User user = userService.findByToken(tokenValue);
+					req.setAttribute("userID", user.getId());
+				}
+			}
+		}
+		chain.doFilter(req, response);
+	}
 
-  @Override
-  public void destroy() {
+	@Override
+	public void destroy() {
 
-  }
+	}
 }
