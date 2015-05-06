@@ -9,6 +9,7 @@
                 <entry key="categoryController" value-ref="categoryController"/>
                 <entry key="signUpController" value-ref="signUpController"/>
                 <entry key="activationController" value-ref="activationController"/>
+                <entry key="addProjectController" value-ref="addProjectController"/>
             </map>
         </property>
     </bean>
