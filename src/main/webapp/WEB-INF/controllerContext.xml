@@ -14,4 +14,7 @@
     <bean id="activationController" class="ua.goit.controller.ActivationController">
         <constructor-arg ref="userService"/>
     </bean>
+    <bean id="addProjectController" class="ua.goit.controller.AddProjectController">
+        <constructor-arg ref="categoryService"/>
+    </bean>    
 </beans>

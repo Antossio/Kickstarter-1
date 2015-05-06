@@ -32,13 +32,15 @@ public class MainServlet extends HttpServlet {
     Controller categoryController = (Controller) context.getAttribute("categoryController");
     Controller signUpController = (Controller) context.getAttribute("signUpController");
     Controller activationController = (Controller) context.getAttribute("activationController");
+    Controller addProjectController = (Controller) context.getAttribute("addProjectController");
+    
 
     controllers.put(Request.create(Method.GET, "/user"), new UserController());
     controllers.put(Request.create(Method.GET, "/kickstarter/categories"), categoryController);
     controllers.put(Request.create(Method.POST, "/kickstarter/signup"), signUpController);
     controllers.put(Request.create(Method.GET, "/kickstarter/activation"), activationController);
+    controllers.put(Request.create(Method.GET, "/kickstarter/projects"), addProjectController);    
   }
-
 
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -57,7 +59,7 @@ public class MainServlet extends HttpServlet {
     try {
       Controller controller = controllers.get(request);
       if (controller == null) {
-        throw new RuntimeException("Page not Found!!!");
+           throw new RuntimeException("Page not Found!!!");
       }
       controller.getClass();
       Annotation annotation = controller.getClass().getAnnotation(ValidateAnnotation.class);

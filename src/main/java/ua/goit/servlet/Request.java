@@ -45,10 +45,19 @@ public class Request {
   @Override
   public boolean equals(Object obj) {
     if (this == obj) return true;
-    if (obj == null || getClass() != obj.getClass()) return false;
+    if (obj == null || getClass() != obj.getClass()) {
+    	System.out.println("AAAAAAAAAAA");
+    	return false;
+    }
     Request request = (Request) obj;
-    if (!method.equals(request.getMethod())) return false;
-    if (!url.equals(request.getUrl())) return false;
+    if (!method.equals(request.getMethod())) {
+    	System.out.println("BBBBBBBBBBBB");        
+    	return false;
+    }
+    if (!url.equals(request.getUrl())) {
+    	System.out.println("CCCCCCCCCCC");        
+    	return false;
+    }
     return true;
   }
 
