@@ -1,0 +1,13 @@
+127.0.0.1 - - [07/May/2015:14:03:41 +0300] "GET /kickstarter/categories HTTP/1.1" 200 692 http-bio-8080-exec-1 1852
+127.0.0.1 - - [07/May/2015:14:03:44 +0300] "GET /kickstarter/categories?category=1 HTTP/1.1" 200 205 http-bio-8080-exec-4 128
+127.0.0.1 - - [07/May/2015:14:03:48 +0300] "GET /kickstarter/categories?category=2 HTTP/1.1" 200 205 http-bio-8080-exec-5 8
+127.0.0.1 - - [07/May/2015:14:03:51 +0300] "GET /kickstarter/categories?category=3 HTTP/1.1" 200 205 http-bio-8080-exec-6 8
+127.0.0.1 - - [07/May/2015:14:04:39 +0300] "GET /kickstarter/signup.jsp HTTP/1.1" 200 136 http-bio-8080-exec-7 78
+127.0.0.1 - - [07/May/2015:17:39:52 +0300] "GET /kickstarter/signup HTTP/1.1" 200 136 http-bio-8080-exec-9 4
+127.0.0.1 - - [07/May/2015:17:39:55 +0300] "GET /kickstarter/signup HTTP/1.1" 200 136 http-bio-8080-exec-10 4
+127.0.0.1 - - [07/May/2015:17:40:02 +0300] "GET /kickstarter/categories?category=4 HTTP/1.1" 200 205 http-bio-8080-exec-10 7
+127.0.0.1 - - [07/May/2015:17:40:06 +0300] "GET /kickstarter/categories?category=5 HTTP/1.1" 200 205 http-bio-8080-exec-10 7
+127.0.0.1 - - [07/May/2015:17:40:10 +0300] "GET /kickstarter/categories?category=1 HTTP/1.1" 200 205 http-bio-8080-exec-10 6
+127.0.0.1 - - [07/May/2015:17:40:14 +0300] "GET /kickstarter/categories?category=4 HTTP/1.1" 200 205 http-bio-8080-exec-6 7
+127.0.0.1 - - [07/May/2015:17:40:24 +0300] "GET /kickstarter/login HTTP/1.1" 200 136 http-bio-8080-exec-6 3
+127.0.0.1 - - [07/May/2015:17:40:37 +0300] "GET /kickstarter/categories HTTP/1.1" 200 692 http-bio-8080-exec-2 7
