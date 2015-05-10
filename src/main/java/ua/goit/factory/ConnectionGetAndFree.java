@@ -6,7 +6,7 @@ public class ConnectionGetAndFree {
  
 	private final DBConnectionManager connectionManager = DBConnectionManager.getInstance();
 	private String name = null;
-		
+
 	public ConnectionGetAndFree (ConnectionPoolNames name) {
 		this.name = name.getStringName();
 	}

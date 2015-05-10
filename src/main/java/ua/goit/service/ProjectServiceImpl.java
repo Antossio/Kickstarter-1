@@ -1,14 +1,18 @@
 package ua.goit.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import ua.goit.dao.ProjectDao;
 import ua.goit.model.Project;
 
 import java.util.List;
 
+@Service
 public class ProjectServiceImpl implements ProjectService {
 
   private final ProjectDao projectDao;
 
+  @Autowired
   public ProjectServiceImpl(ProjectDao projectDao) {
     this.projectDao = projectDao;
   }
@@ -27,7 +31,7 @@ public class ProjectServiceImpl implements ProjectService {
   public List<Project> getByUserId(Integer id) {
     return projectDao.getByUserId(id);
   }
-  
+
   @Override
   public List<Project> getAll() {
     return projectDao.getAll();

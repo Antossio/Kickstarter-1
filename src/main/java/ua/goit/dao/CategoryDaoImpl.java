@@ -1,5 +1,7 @@
 package ua.goit.dao;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import ua.goit.factory.ConnectionGetAndFree;
 import ua.goit.factory.ConnectionPoolNames;
 import ua.goit.factory.DBConnectionManager;
@@ -9,9 +11,11 @@ import java.sql.*;
 import java.util.*;
 import java.util.Date;
 
+@Repository
 public class CategoryDaoImpl implements CategoryDao {
   private final ConnectionGetAndFree connectionGetAndFree;
 
+  @Autowired
   public CategoryDaoImpl(ConnectionGetAndFree connectionGetAndFree) {
     this.connectionGetAndFree = connectionGetAndFree;
   }

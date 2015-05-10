@@ -1,5 +1,7 @@
 package ua.goit.dao;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import ua.goit.factory.ConnectionGetAndFree;
 import ua.goit.factory.ConnectionPoolNames;
 import ua.goit.model.User;
@@ -8,9 +10,11 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 public class UserDaoImpl implements UserDao {
   private final ConnectionGetAndFree connectionGetAndFree;
 
+  @Autowired
   public UserDaoImpl(ConnectionGetAndFree connectionGetAndFree) {
     this.connectionGetAndFree = connectionGetAndFree;
   }

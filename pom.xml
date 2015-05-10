@@ -3,7 +3,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>ua.goit</groupId>
-    <artifactId>kickstarter1</artifactId>
+    <artifactId>kickstarter</artifactId>
     <packaging>war</packaging>
     <version>1.0-SNAPSHOT</version>
     <url>http://maven.apache.org</url>
@@ -37,6 +37,11 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-web</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
             <version>${spring.version}</version>
         </dependency>
         <!-- Test -->

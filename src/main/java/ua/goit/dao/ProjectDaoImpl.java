@@ -1,5 +1,7 @@
 package ua.goit.dao;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import ua.goit.factory.ConnectionGetAndFree;
 import ua.goit.model.Category;
 import ua.goit.model.Project;
@@ -10,12 +12,15 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+@Repository
+
 public class ProjectDaoImpl implements ProjectDao {
 
   private final ConnectionGetAndFree connectionGetAndFree;
   private final UserDao userDao;
   private final CategoryDao categoryDao;
 
+  @Autowired
   public ProjectDaoImpl(ConnectionGetAndFree connectionGetAndFree, UserDao userDao, CategoryDao categoryDao) {
     this.connectionGetAndFree = connectionGetAndFree;
     this.userDao = userDao;
@@ -89,8 +94,8 @@ public class ProjectDaoImpl implements ProjectDao {
     }
     return listWithProject;
   }
-  
-    @Override
+
+  @Override
   public List<Project> getAll() {
     Statement statement = null;
     Project project = null;
