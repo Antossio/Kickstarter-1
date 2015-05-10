@@ -1,6 +1,8 @@
 package ua.goit.filter;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import ua.goit.model.User;
 import ua.goit.service.UserService;
 
@@ -9,11 +11,13 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
+@Component("UserFilter")
 public class UserFilter implements Filter {
   private static final Logger logger = Logger.getLogger(UserFilter.class);
   private final UserService userService;
   private String token = "token";
 
+  @Autowired
   public UserFilter(UserService userService) {
     this.userService = userService;
   }

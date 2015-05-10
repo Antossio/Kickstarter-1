@@ -10,7 +10,10 @@
             <param-name>log4jPropertiesLocation</param-name>
             <param-value>log4j.properties</param-value>
         </init-param>
-        <!--<load-on-startup>1</load-on-startup>-->
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>/WEB-INF/spring/dispatcher/*.xml</param-value>
+        </init-param>
     </servlet>
     <servlet-mapping>
         <servlet-name>kickstarter</servlet-name>
@@ -18,13 +21,21 @@
 
     </servlet-mapping>
 
-    <!--<filter>-->
-        <!--<filter-name>UserFilter</filter-name>-->
-        <!--<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>-->
-    <!--</filter>-->
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>/WEB-INF/spring/root/*.xml</param-value>
+    </context-param>
 
-    <!--<filter-mapping>-->
-        <!--<filter-name>UserFilter</filter-name>-->
-        <!--<url-pattern>/kickstarter/*</url-pattern>-->
-    <!--</filter-mapping>-->
+    <filter>
+        <filter-name>UserFilter</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>UserFilter</filter-name>
+        <url-pattern>/kickstarter/*</url-pattern>
+    </filter-mapping>
 </web-app>
