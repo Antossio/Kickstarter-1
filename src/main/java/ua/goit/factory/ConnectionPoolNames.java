@@ -1,7 +1,7 @@
 package ua.goit.factory;
 
 public enum ConnectionPoolNames {
-	IDB("idb"); 
+	IDB("idb");
 	ConnectionPoolNames(String name){
 		this.name = name;
 	}

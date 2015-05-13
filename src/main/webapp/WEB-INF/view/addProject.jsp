@@ -11,7 +11,7 @@
 	<%@include file="menu.jsp"%>
 	
 	<div class="main">
-	<form action="/kickstarter/projects" method="post">
+	<form action="/project/" method="post">
 		<label>Category<br>
 		<select name="categories">
 		 <c:forEach var="category" items="${categories}">

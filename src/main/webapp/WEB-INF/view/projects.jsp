@@ -1,17 +1,22 @@
-<%@ page import="ua.goit.model.Category" %>
-<%@ page import="java.util.List" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core"%>
-
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-  <title>Categories</title>
+<title>Projects</title>
+<link href="/WEB-INF/view/style.css" rel="stylesheet">
 </head>
 <body>
-<c:forEach var="project" items="${projects}">
-  <ul>
-    <li><a href="#"><c:out value="${project.projectName}"/></a></li>
-  </ul>
-</c:forEach>
+
+	<%@include file="menu.jsp"%>
+
+	<div class="main">
+		<p>List of projects</p><br>
+		<c:forEach var="project" items="${projects}">
+			<ul>
+				<li><c:out value="${project.projectName}"/></li>
+			</ul>
+		</c:forEach>
+	</div>
 </body>
 </html>

@@ -3,13 +3,12 @@ package ua.goit.dao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import ua.goit.factory.ConnectionGetAndFree;
-import ua.goit.factory.ConnectionPoolNames;
-import ua.goit.factory.DBConnectionManager;
 import ua.goit.model.Category;
 
 import java.sql.*;
-import java.util.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Repository
 public class CategoryDaoImpl implements CategoryDao {
@@ -23,13 +22,12 @@ public class CategoryDaoImpl implements CategoryDao {
   @Override
   public void add(Category entity) {
     PreparedStatement statement = null;
-    String sql = "insert into Category(name, timeStamp) values(?,?)";
+    String sql = "insert into Category(name) values(?)";
     Connection connection = null;
     try {
       connection = connectionGetAndFree.getConnection();
       statement = connection.prepareStatement(sql);
       statement.setString(1, entity.getCategoryName());
-      statement.setTimestamp(2, getCurrentTimeStamp());
       statement.execute();
     } catch (SQLException e) {
       e.printStackTrace();

@@ -15,6 +15,10 @@ public class Category {
     this.timestamp = timestamp;
   }
 
+  public Category(String categoryName) {
+    this.categoryName = categoryName;
+  }
+
   public Timestamp getTimestamp() {
     return timestamp;
   }

@@ -1,7 +1,9 @@
 package ua.goit.factory;
 
-import java.sql.Connection;
+import org.springframework.stereotype.Repository;
 
+import java.sql.Connection;
+@Repository
 public class ConnectionGetAndFree {
  
 	private final DBConnectionManager connectionManager = DBConnectionManager.getInstance();
