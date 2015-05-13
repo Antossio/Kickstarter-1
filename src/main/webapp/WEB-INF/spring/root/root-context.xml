@@ -19,4 +19,6 @@
        <bean id="connectionGetAndFree" class="ua.goit.factory.ConnectionGetAndFree">
               <constructor-arg value="IDB"/>
        </bean>
+
+    <import resource="../../hibernate/data-hibernate.xml"/>
 </beans>

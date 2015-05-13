@@ -1,96 +1,106 @@
 package ua.goit.model;
 
+import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.List;
 
+@Entity
+@Table(name = "project")
 public class Project {
-	private Integer id;
-	private String projectName;
-	private Category category;
-	private User user;
-	private Timestamp timestamp;
-	private String shortDesc;
-	private String longDesc;
-	private String link;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+    private String projectName;
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "Category_id")
+    private Category category;
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "Users_id")
+    private User user;
+    @Column(name = "timeStamp")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Timestamp timestamp;
+    @Column(name = "shortDesc")
+    private String shortDesc;
+    @Column(name = "longDesc")
+    private String longDesc;
+    @Column(name = "link")
+    private String link;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "project_id")
+    private List<Comment> commentList;
 
-	public Project(String projectName, Category category,
-			User user, String shortDesc, String longDesc, String link) {
-		this.projectName = projectName;
-		this.category = category;
-		this.user = user;
-		this.shortDesc = shortDesc;
-		this.longDesc = longDesc;
-		this.link = link;
-	}
+    public Project() {
+    }
 
-	public Project(Integer id, String projectName, Category category,
-			User user, Timestamp timestamp, String shortDesc, String longDesc, String link) {
-		this.id = id;
-		this.projectName = projectName;
-		this.category = category;
-		this.user = user;
-		this.timestamp = timestamp;
-		this.shortDesc = shortDesc;
-		this.longDesc = longDesc;
-		this.link = link;
-	}
-	
-	public Timestamp getTimestamp() {
-		return timestamp;
-	}
+    public List<Comment> getCommentList() {
+        return commentList;
+    }
 
-	public void setTimestamp(Timestamp timestamp) {
-		this.timestamp = timestamp;
-	}
+    public void setCommentList(List<Comment> commentList) {
+        this.commentList = commentList;
+    }
 
-	public User getUser() {
-		return user;
-	}
+    public Integer getId() {
+        return id;
+    }
 
-	public void setUser(User user) {
-		this.user = user;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public Integer getId() {
-		return id;
-	}
+    public String getProjectName() {
+        return projectName;
+    }
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
+    }
 
-	public void setShortDesc(String shortDesc) {
-		this.shortDesc = shortDesc;
-	}
+    public Category getCategory() {
+        return category;
+    }
 
-	public void setLongDesc(String longDesc) {
-		this.longDesc = longDesc;
-	}
+    public void setCategory(Category category) {
+        this.category = category;
+    }
 
-	public void setLink(String link) {
-		this.link = link;
-	}
+    public User getUser() {
+        return user;
+    }
 
-	public String getShortDesc() {
-		return shortDesc;
-	}
+    public void setUser(User user) {
+        this.user = user;
+    }
 
-	public String getLongDesc() {
-		return longDesc;
-	}
+    public Timestamp getTimestamp() {
+        return timestamp;
+    }
 
-	public String getLink() {
-		return link;
-	}
+    public void setTimestamp(Timestamp timestamp) {
+        this.timestamp = timestamp;
+    }
 
-	public Category getCategory() {
-		return category;
-	}
+    public String getShortDesc() {
+        return shortDesc;
+    }
 
-	public void setCategory(Category category) {
-		this.category = category;
-	}
+    public void setShortDesc(String shortDesc) {
+        this.shortDesc = shortDesc;
+    }
 
-	public String getProjectName() {
-		return projectName;
-	}
+    public String getLongDesc() {
+        return longDesc;
+    }
+
+    public void setLongDesc(String longDesc) {
+        this.longDesc = longDesc;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
+    }
 }

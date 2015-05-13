@@ -1,12 +1,19 @@
 package ua.goit.model;
 
+import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.List;
-
+@Entity
+@Table(name = "category")
 public class Category {
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
+  @Column(name = "name")
   private String categoryName;
-  private List<Project> listOfProject;
+  @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "category")
+  private List<Project> projectList;
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Timestamp timestamp;
 
   public Category(Integer id, String categoryName, Timestamp timestamp) {
@@ -17,6 +24,9 @@ public class Category {
 
   public Category(String categoryName) {
     this.categoryName = categoryName;
+  }
+
+  public Category() {
   }
 
   public Timestamp getTimestamp() {
@@ -44,11 +54,11 @@ public class Category {
   }
 
   public List<Project> getListOfProject() {
-    return listOfProject;
+    return projectList;
   }
 
-  public void setListOfProject(List<Project> listOfProject) {
-    this.listOfProject = listOfProject;
+  public void setListOfProject(List<Project> projectList) {
+    this.projectList = projectList;
   }
 
 }

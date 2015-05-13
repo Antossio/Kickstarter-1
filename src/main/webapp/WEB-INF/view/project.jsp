@@ -12,7 +12,6 @@
 
 <div class="main">
   <p>Project</p><br>
-  <c:set var="project" value="${project}"/>
   <c:out value="${project.projectName}"/>
 </div>
 </body>
