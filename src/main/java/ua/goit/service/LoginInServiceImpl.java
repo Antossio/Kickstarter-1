@@ -3,6 +3,10 @@ package ua.goit.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ua.goit.model.User;
+
+import javax.transaction.Transactional;
+
+@Transactional
 @Service
 public class LoginInServiceImpl implements LoginInService {
   private final UserService userService;

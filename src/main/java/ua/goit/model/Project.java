@@ -5,31 +5,35 @@ import java.sql.Timestamp;
 import java.util.List;
 
 @Entity
-@Table(name = "project")
 public class Project {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String projectName;
+    private String name;
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "Category_id")
     private Category category;
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "Users_id")
     private User user;
-    @Column(name = "timeStamp")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Timestamp timestamp;
-    @Column(name = "shortDesc")
     private String shortDesc;
-    @Column(name = "longDesc")
     private String longDesc;
-    @Column(name = "link")
     private String link;
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "project_id")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "project")
     private List<Comment> commentList;
 
     public Project() {
+    }
+
+    public Project(String name, Category category, User user, String shortDesc, String longDesc, String link) {
+        this.name = name;
+        this.category = category;
+        this.user = user;
+        this.shortDesc = shortDesc;
+        this.longDesc = longDesc;
+        this.link = link;
     }
 
     public List<Comment> getCommentList() {
@@ -48,12 +52,12 @@ public class Project {
         this.id = id;
     }
 
-    public String getProjectName() {
-        return projectName;
+    public String getName() {
+        return name;
     }
 
-    public void setProjectName(String projectName) {
-        this.projectName = projectName;
+    public void setName(String projectName) {
+        this.name = projectName;
     }
 
     public Category getCategory() {

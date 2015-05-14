@@ -5,8 +5,9 @@ import org.springframework.stereotype.Service;
 import ua.goit.dao.CategoryDao;
 import ua.goit.model.Category;
 
+import javax.transaction.Transactional;
 import java.util.List;
-
+@Transactional
 @Service
 public class CategoryServiceImpl implements CategoryService {
   private final CategoryDao categoryDao;
@@ -37,7 +38,7 @@ public class CategoryServiceImpl implements CategoryService {
   }
 
   @Override
-  public void remove(Integer id) {
-    categoryDao.remove(id);
+  public void remove(Category entity) {
+    categoryDao.remove(entity);
   }
 }

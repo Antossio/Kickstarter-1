@@ -5,8 +5,10 @@ import org.springframework.stereotype.Service;
 import ua.goit.dao.ProjectDao;
 import ua.goit.model.Project;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
+@Transactional
 @Service
 public class ProjectServiceImpl implements ProjectService {
 
@@ -29,7 +31,7 @@ public class ProjectServiceImpl implements ProjectService {
 
   @Override
   public List<Project> getByUserId(Integer id) {
-    return projectDao.getByUserId(id);
+    return projectDao.getProjectsByUserId(id);
   }
 
   @Override
@@ -43,8 +45,8 @@ public class ProjectServiceImpl implements ProjectService {
   }
 
   @Override
-  public void remove(Integer id) {
-    projectDao.remove(id);
+  public void remove(Project entity) {
+    projectDao.remove(entity);
   }
 
   @Override
