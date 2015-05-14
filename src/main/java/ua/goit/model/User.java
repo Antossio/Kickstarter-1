@@ -5,7 +5,6 @@ import java.sql.Timestamp;
 import java.util.List;
 
 @Entity
-@Table(name = "users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,22 +13,25 @@ public class User {
     private String login;
     private String password;
     private String token;
-    @Column(name = "timeStamp")
     private Timestamp timestamp;
     private String email;
     private Integer activeFlag;
-    @Column(name = "activationKey")
     private String activationKey;
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
     private List<Project> projectList;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
+    private List<Comment> commentList;
+    @OneToMany(cascade = CascadeType.ALL, fetch =  FetchType.LAZY, mappedBy = "user")
+    private List<AuthorBlog> authorBlogsList;
 
-    public User(Integer id, String name, String login, String password, String token, Timestamp timestamp) {
+    public User(Integer id, String name, String login, String password, String token, Timestamp timestamp, List<AuthorBlog> authorBlogsList) {
         this.id = id;
         this.name = name;
         this.login = login;
         this.password = password;
         this.token = token;
         this.timestamp = timestamp;
+        this.authorBlogsList = authorBlogsList;
     }
 
     public User(String name, String login, String password, String email, String activationKey) {

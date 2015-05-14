@@ -5,10 +5,8 @@ import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.Collection;
 import java.util.Enumeration;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Properties;
 
 /**
@@ -41,7 +39,7 @@ public class DBConnectionManager {
 
 	/** Read properties from file, load the drivers, create the ConnectionPool */
 	private void init() {
-		InputStream is = getClass().getResourceAsStream("/db.properties");
+		InputStream is = getClass().getResourceAsStream("/hibernate/db.properties");
 		Properties dbProps = new Properties();
 		try {
 			dbProps.load(is);

@@ -15,26 +15,26 @@ public class Comment {
 	private Timestamp timestamp;
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "Project_id")
-	private Project project_id;
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private Project project;
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "Users_id")
-	private User users_id;
+	private User user;
 
 	public Comment(Integer id, String comment, Timestamp timestamp,
-			Project project_id, User users_id) {
+			Project project, User user) {
 		super();
 		this.id = id;
 		this.comment = comment;
 		this.timestamp = timestamp;
-		this.project_id = project_id;
-		this.users_id  = users_id;
+		this.project = project;
+		this.user = user;
 	}
 
-	public Comment(String comment, Project project_id, User users_id) {
+	public Comment(String comment, Project project, User user) {
 		super();
 		this.comment = comment;
-		this.project_id = project_id;
-		this.users_id = users_id;
+		this.project = project;
+		this.user = user;
 	}
 
 	public Comment() {
@@ -58,17 +58,17 @@ public class Comment {
 	public void setTimestamp(Timestamp timestamp) {
 		this.timestamp = timestamp;
 	}
-	public Project getProject_id() {
-		return project_id;
+	public Project getProject() {
+		return project;
 	}
-	public void setProject_id(Project project_id) {
-		this.project_id = project_id;
+	public void setProject(Project project_id) {
+		this.project = project_id;
 	}
-	public User getUsers_id() {
-		return users_id;
+	public User getUser() {
+		return user;
 	}
-	public void setUsers_id(User users_id) {
-		this.users_id = users_id;
+	public void setUser(User users_id) {
+		this.user = users_id;
 	}
 
 }

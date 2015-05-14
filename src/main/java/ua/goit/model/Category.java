@@ -4,26 +4,24 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.List;
 @Entity
-@Table(name = "category")
 public class Category {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
-  @Column(name = "name")
-  private String categoryName;
+  private String name;
   @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "category")
   private List<Project> projectList;
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Timestamp timestamp;
 
-  public Category(Integer id, String categoryName, Timestamp timestamp) {
+  public Category(Integer id, String name, Timestamp timestamp) {
     this.id = id;
-    this.categoryName = categoryName;
+    this.name = name;
     this.timestamp = timestamp;
   }
 
-  public Category(String categoryName) {
-    this.categoryName = categoryName;
+  public Category(String name) {
+    this.name = name;
   }
 
   public Category() {
@@ -45,12 +43,12 @@ public class Category {
     this.id = id;
   }
 
-  public String getCategoryName() {
-    return categoryName;
+  public String getName() {
+    return name;
   }
 
-  public void setCategoryName(String categoryName) {
-    this.categoryName = categoryName;
+  public void setName(String categoryName) {
+    this.name = categoryName;
   }
 
   public List<Project> getListOfProject() {

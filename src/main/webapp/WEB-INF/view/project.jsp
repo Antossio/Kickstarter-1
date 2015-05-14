@@ -12,7 +12,7 @@
 
 <div class="main">
   <p>Project</p><br>
-  <c:out value="${project.projectName}"/>
+  <c:out value="${project.name}"/>
 </div>
 </body>
 </html>
