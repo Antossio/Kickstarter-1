@@ -1,6 +1,11 @@
 package ua.goit.controller;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
 import ua.goit.annotation.ValidateAnnotation;
 import ua.goit.service.UserService;
 import ua.goit.validator.FormValidator;
@@ -9,15 +14,23 @@ import java.io.InputStream;
 import java.util.Properties;
 import java.util.Random;
 
+@Controller
 @ValidateAnnotation(name = "formValidator", value = FormValidator.class)
 public class SignUpController{
   private static final Logger logger = Logger.getLogger(SignUpController.class);
   private final UserService userService;
 
+  @Autowired
   public SignUpController(UserService userService) {
     this.userService = userService;
   }
 
+  @RequestMapping("/signup")
+  public String signUp(Model model){
+	  return "signup";
+  }
+  
+  
 //  @Override
 //  public ModelAndView handleRequest(Request request) {
 //    logger.info("Start execute" + SignUpController.class.getName());
