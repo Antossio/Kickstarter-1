@@ -5,8 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ua.goit.dao.BlogDao;
-import ua.goit.model.Blog;
+import ua.goit.model.AuthorBlog;
 
+import javax.transaction.Transactional;
+
+@Transactional
 @Service
 public class BlogServiceImpl implements BlogService {
   private final BlogDao blogDao;
@@ -17,27 +20,27 @@ public class BlogServiceImpl implements BlogService {
   }
 
   @Override
-  public void add(Blog entity) {
+  public void add(AuthorBlog entity) {
     blogDao.add(entity);
   }
 
   @Override
-  public Blog getById(Integer id) {
+  public AuthorBlog getById(Integer id) {
     return blogDao.getById(id);
   }
 
   @Override
-  public List<Blog> getAll() {
+  public List<AuthorBlog> getAll() {
     return blogDao.getAll();
   }
 
   @Override
-  public void update(Blog entity) {
+  public void update(AuthorBlog entity) {
     blogDao.update(entity);
   }
 
   @Override
-  public void remove(Integer id) {
-    blogDao.remove(id);
+  public void remove(AuthorBlog entity) {
+    blogDao.remove(entity);
   }
 }
