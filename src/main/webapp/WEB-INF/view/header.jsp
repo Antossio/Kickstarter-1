@@ -1,9 +1,9 @@
 <div>
 	<c:choose>
 		<c:when test="${isLoggedIn}">
-			<li><a href="/kickstarter/profile">Welcome, <c:out value="${user.name}"/></a></li>
+			<li><a href="/kickstarter/profile">Welcome, <c:out value="${user.name}" /></a></li>
 			<li><a href="/kickstarter/logout">Log out</a></li>
-			<li>asdfg</li>			
+			<li><c:out value="${isLoggedIn}" /></li>
 		</c:when>
 		<c:otherwise>
 			<form action="/kickstarter/loginIn" method="post">
