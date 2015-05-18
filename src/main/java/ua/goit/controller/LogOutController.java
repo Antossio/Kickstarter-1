@@ -37,6 +37,6 @@ public class LogOutController {
 				response.addCookie(c);
 			}
 		}
-		response.sendRedirect("/kickstarter/");
+		response.sendRedirect("/kickstarter/home");
 	}
 }

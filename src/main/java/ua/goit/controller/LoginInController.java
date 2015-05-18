@@ -42,7 +42,7 @@ public class LoginInController {
 	if (state == true) {
 		String token = user.getToken();
 		response.addCookie(new Cookie("token", token));
-		result = "redirect:";	   
+		result = "redirect:/kickstarter/home";
 	} else 
 	  result = "signup"; //TODO rewrite to redirect:signup when SignupController will done (for clear mapping)
 	return result;

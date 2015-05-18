@@ -19,5 +19,4 @@
     <context:component-scan base-package="ua.goit.service"/>
     <context:component-scan base-package="ua.goit.dao"/>
     <context:component-scan base-package="ua.goit.filter"/>
-
 </beans>
