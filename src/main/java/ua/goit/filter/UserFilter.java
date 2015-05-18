@@ -18,7 +18,7 @@ import java.io.IOException;
 public class UserFilter implements Filter {
 	private static final Logger logger = Logger.getLogger(UserFilter.class);
 	private final UserService userService;
-	private String token = "token";
+	private final String token = "token";
 
 	@Autowired
 	public UserFilter(UserService userService) {
@@ -36,14 +36,15 @@ public class UserFilter implements Filter {
 		String tokenValue = null;
 		if (cookies != null) {
 			for (Cookie c : cookies) {
+				logger.error(c.getName() + token.equals(c.getName()));
 				if (token.equals(c.getName())) {
 					tokenValue = c.getValue();
 					User user = userService.findByToken(tokenValue);
 					req.setAttribute("isLoggedIn", "true");
-					req.setAttribute("user", user);          
+					req.setAttribute("user", user);
 				}
 			}
-		}
+		}	   
 		chain.doFilter(req, response);
 	}
 
