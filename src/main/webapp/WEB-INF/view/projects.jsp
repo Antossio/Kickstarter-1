@@ -4,16 +4,20 @@
 <html>
 <head>
 <title>Projects</title>
-<link href="/WEB-INF/view/style.css" rel="stylesheet">
+
 </head>
 <body>
 	<%@ include file="header.jsp"%>
-	<div class="main">
+	<div>
 		<p>List of projects</p><br>
 		<c:forEach var="project" items="${projects}">
+			<div>
 			<ul>
-				<li><c:out value="${project.name}"/></li>
+				<li><img src="<c:out value="${project.link}"/>"></li>
+				<li><a href="/kickstarter/projects/<c:out value="${project.id}"/>"><c:out value="${project.name}"/></a></li>
+				<li><c:out value="${project.shortDesc}"/></li>
 			</ul>
+			</div>
 		</c:forEach>
 	</div>
 </body>

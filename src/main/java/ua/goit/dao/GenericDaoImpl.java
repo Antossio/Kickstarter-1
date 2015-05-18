@@ -23,7 +23,7 @@ public abstract class GenericDaoImpl<T> implements GenericDao<T> {
 
   @Override
   public T getById(Integer id) {
-    return (T) sessionFactory.getCurrentSession().load(tClass, id);
+    return (T) sessionFactory.openSession().load(tClass, id);
   }
 
   @Override

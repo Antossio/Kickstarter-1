@@ -10,6 +10,5 @@
 	<form action="/kickstarter/logout" method="post">
 		<input type=submit name=submit value="Log Out" />
 	</form>
-
 </body>
 </html>

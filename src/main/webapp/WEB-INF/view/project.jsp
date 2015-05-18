@@ -3,16 +3,23 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-  <title>Project</title>
-  <link href="/WEB-INF/view/style.css" rel="stylesheet">
+<%@include file="cssJs.jsp"%>
+<title>Project</title>
 </head>
 <body>
-
-<%@include file="menu.jsp"%>
-
-<div class="main">
-  <p>Project</p><br>
-  <c:out value="${project.name}"/>
-</div>
+	<%@include file="header.jsp"%>
+	<div>
+		<c:out value="${project.name}" />
+		<br>
+		<c:out value="${project.link}" />
+		<br>
+		<c:out value="${project.shortDesc}" />
+		<br>
+		<c:out value="${project.longDesc}" />
+		<br>
+		<c:out value="${project.user.name}" />
+		<br>
+		<c:out value="${project.timestamp}" />		
+	</div>
 </body>
 </html>

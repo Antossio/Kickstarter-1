@@ -36,12 +36,18 @@ public class CategoryController {
     return "projects";
   }
 
-  @RequestMapping(value = "/categories/{categoryId}", method = RequestMethod.POST)
-  public String addCategory(Model model, @RequestParam(value = "categoryName") String categoryName) {
-    List<Category> categories = categoryService.getAll();
+  @RequestMapping(value = "/categories/", method = RequestMethod.POST)
+  public String addCategory(Model model, 
+      @RequestParam("categoryName") String categoryName) {
     categoryService.add(new Category(categoryName));
+    List<Category> categories = categoryService.getAll();
     model.addAttribute("categories", categories);
     return "categories";
+  }
+
+  @RequestMapping(value = "/addCategory", method = RequestMethod.GET)
+  public String addCategory(Model model) {
+  return "addCategory";
   }
 }
 

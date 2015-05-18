@@ -20,23 +20,28 @@ import ua.goit.service.LoginInService;
 @Controller
 public class LogOutController {
 
-	private static final Logger logger = Logger.getLogger(LogOutController.class);
-	private final LoginInService loginInService;
-	private String token = "token";
-	@Autowired
-	public LogOutController(LoginInService loginInService) {
-		this.loginInService = loginInService;
-	}
+  private static final Logger logger = Logger.getLogger(LogOutController.class);
+  private final LoginInService loginInService;
+  private String token = "token";
+  @Autowired
+  public LogOutController(LoginInService loginInService) {
+	this.loginInService = loginInService;
+  }
 
-	@RequestMapping(value = "/logout", method = RequestMethod.GET)
-	public void redirectFromLogout(Model model, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Cookie[] cookie = request.getCookies();
-		for (Cookie c : cookie) {
-			if (token.equals(c.getName())) {
-				c.setMaxAge(0);
-				response.addCookie(c);
-			}
-		}
-		response.sendRedirect("/kickstarter/");
+  @RequestMapping(value = "/logout",method = RequestMethod.POST)
+  public void doLogout(Model model, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	Cookie[] cookie = request.getCookies();
+	for (Cookie c : cookie) {
+	  if (token.equals(c.getName())) {
+		c.setMaxAge(0);
+		response.addCookie(c);
+	  }
 	}
+	response.sendRedirect("/kickstarter/logout");
+  }
+  
+  @RequestMapping(value = "/logout",method = RequestMethod.GET)
+  public void redirectFromLogout(Model model, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	response.sendRedirect("/kickstarter/home");
+  }
 }
