@@ -7,9 +7,7 @@
 <link href="/WEB-INF/view/style.css" rel="stylesheet">
 </head>
 <body>
-
-	<%@include file="menu.jsp"%>
-
+	<%@ include file="header.jsp"%>
 	<div class="main">
 		<p>List of projects</p><br>
 		<c:forEach var="project" items="${projects}">

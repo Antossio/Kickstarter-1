@@ -1,11 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ include file="header.jsp"%>
 <%@ include file="prefixes.jsp"%>
 <html>
 <head>
     <title>Categories</title>
 </head>
 <body>
+    <%@ include file="header.jsp"%>
     <c:forEach var="category" items="${categories}">
         <ul>
             <li> <a href="categories/<c:out value="${category.id}"/>"> <c:out value="${category.name}"/> </a></li>

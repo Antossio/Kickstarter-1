@@ -42,6 +42,7 @@ public class User {
         this.email = email;
         this.activationKey = activationKey;
         this.token = "0";
+        this.activeFlag = 0;
     }
 
     public User(Integer id, String name, String login, String password, String token, Timestamp timestamp, String email, String activationKey, Integer activeFlag) {
@@ -60,8 +61,6 @@ public class User {
     }
 
     public Integer getActiveFlag() {
-
-
         return activeFlag;
     }
 

@@ -23,7 +23,7 @@ public class Project {
     private String link;
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "project")
     private List<Comment> commentList;
-
+    
     public Project() {
     }
 

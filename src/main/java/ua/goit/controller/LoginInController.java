@@ -1,5 +1,8 @@
 package ua.goit.controller;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,17 +32,19 @@ public class LoginInController {
   }
 
   @RequestMapping(value = "/loginIn", method = RequestMethod.POST)
-  public String process(
+  public String process(Model model,
 	  @RequestParam("login") String login,
-	  @RequestParam("password") String password, Model model) {
+	  @RequestParam("password") String password,
+	  HttpServletResponse response) {
 	User user = loginInService.getUser(login);
 	Boolean state = loginInService.checkPassword(user, password);
 	String result;
 	if (state == true) {
-	  result = "redirect:categories" ;
+		String token = user.getToken();
+		response.addCookie(new Cookie("token", token));
+		result = "redirect:";	   
 	} else 
 	  result = "signup"; //TODO rewrite to redirect:signup when SignupController will done (for clear mapping)
-
 	return result;
   }
 }

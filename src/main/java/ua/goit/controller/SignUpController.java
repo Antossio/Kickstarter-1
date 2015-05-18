@@ -5,85 +5,106 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import ua.goit.annotation.ValidateAnnotation;
+import ua.goit.model.User;
+import ua.goit.service.MailServiceSending;
+import ua.goit.service.MailServiceSendingImpl;
 import ua.goit.service.UserService;
 import ua.goit.validator.FormValidator;
 
 import java.io.InputStream;
+import java.util.Enumeration;
 import java.util.Properties;
 import java.util.Random;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 
 @Controller
 @ValidateAnnotation(name = "formValidator", value = FormValidator.class)
 public class SignUpController{
-  private static final Logger logger = Logger.getLogger(SignUpController.class);
-  private final UserService userService;
+	private static final Logger logger = Logger.getLogger(SignUpController.class);
+	private final UserService userService;
 
-  @Autowired
-  public SignUpController(UserService userService) {
-    this.userService = userService;
-  }
+	@Autowired
+	public SignUpController(UserService userService) {
+		this.userService = userService;
+	}
 
-  @RequestMapping("/signup")
-  public String signUp(Model model){
-	  return "signup";
-  }
-  
-  
-//  @Override
-//  public ModelAndView handleRequest(Request request) {
-//    logger.info("Start execute" + SignUpController.class.getName());
-//    Map<String, String> parameters = request.getParameters();
-//    String name = parameters.get("name");
-//    String login = parameters.get("login");
-//    String password = parameters.get("password");
-//    String email = parameters.get("email");
-//
-//    String activationKey = generateActivationKey(login, email);
-//    Properties properties = loadProperties();
-//    Enumeration propertiesNames = properties.propertyNames();
-//
-//    String serverEmail = "";
-//    String serverPass = "";
-//    String domain = "";
-//
-//    while (propertiesNames.hasMoreElements()) {
-//      switch ((String) propertiesNames.nextElement()) {
-//        case "email":
-//          serverEmail = properties.getProperty("email");
-//          break;
-//        case "password":
-//          serverPass = properties.getProperty("password");
-//          break;
-//        case "domain":
-//          domain = properties.getProperty("domain");
-//          break;
-//        default:
-//          break;
-//      }
-//    }
-//
-//    userService.add(new User(name, login, password, email, activationKey));
-//    MailServiceSending mailServiceSending = new MailServiceSendingImpl(serverEmail, serverPass);
-//    mailServiceSending.send("Activation letter!", domain + "kickstarter/activation?key=" + activationKey, serverEmail, email);
-//    ModelAndView modelAndView = new ModelAndView("/confirm_registration.jsp");
-//    return modelAndView;
-//  }
+	@RequestMapping(value = "/signup", method = RequestMethod.GET)
+	public String signUp(Model model){
+		return "signup";
+	}
 
-  private Properties loadProperties() {
-    InputStream is = getClass().getResourceAsStream("/ms.properties");
-    Properties msProps = new Properties();
-    try {
-      msProps.load(is);
-    } catch (Exception e) {
-      throw new RuntimeException(e);
-    }
-    return msProps;
-  }
 
-  private String generateActivationKey(String login, String email) {
-    return new Random().nextInt(Integer.MAX_VALUE) + "";
+	@RequestMapping(value = "/signup", method = RequestMethod.POST)
+	public String handleSignUpRequest(Model model,
+			@RequestParam("name") String name,
+			@RequestParam("login") String login,
+			@RequestParam("password") String password, 
+			@RequestParam("email") String email) {
+		String activationKey = generateActivationKey(login, email);
+		Properties properties = loadProperties();
+		Enumeration propertiesNames = properties.propertyNames();
+		String serverEmail = "";
+		String serverPass = "";
+		String domain = "";
+		while (propertiesNames.hasMoreElements()) {
+			switch ((String) propertiesNames.nextElement()) {
+			case "email":
+				serverEmail = properties.getProperty("email");
+				break;
+			case "password":
+				serverPass = properties.getProperty("password");
+				break;
+			case "domain":
+				domain = properties.getProperty("domain");
+				break;		
+			}
+		}
 
-  }
+		userService.add(new User(name, login, password, email, activationKey));
+		MailServiceSending mailServiceSending = new MailServiceSendingImpl(serverEmail, serverPass);
+		mailServiceSending.send("Activation letter!", domain + "kickstarter/activation?key=" + activationKey, serverEmail, email);
+		return "confirm_registration";
+	}
+
+	@RequestMapping(value = "/activation", method = RequestMethod.GET)
+	public String handleActivation(Model model,
+			@RequestParam(value = "key") String activationKey,
+			HttpServletResponse response) {
+		if(activationKey.equals(null)) {
+			model.addAttribute("error", "activation key not found");
+			return "error";
+		}
+		User user = userService.findByActivationKey(activationKey);
+		if (user == null) {
+			return "error";
+		} 
+		String token = 31 * user.getId() + user.getLogin().hashCode() + "";
+		user.setToken(token);
+		user.setIsActive(1);
+		userService.update(user);
+		response.addCookie(new Cookie("token", token)); 
+		return "success_registration";
+	}
+
+	private Properties loadProperties() {
+		InputStream is = getClass().getResourceAsStream("/ms.properties");
+		Properties msProps = new Properties();
+		try {
+			msProps.load(is);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+		return msProps;
+	}
+
+	private String generateActivationKey(String login, String email) {
+		return new Random().nextInt(Integer.MAX_VALUE) + "";
+
+	}
 }

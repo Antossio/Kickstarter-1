@@ -4,6 +4,7 @@
   <title>Sign up</title>
 </head>
 <body>
+ <%@ include file="header.jsp"%>
 <form action="/kickstarter/signup" method="post">
   Login:
   <br>
