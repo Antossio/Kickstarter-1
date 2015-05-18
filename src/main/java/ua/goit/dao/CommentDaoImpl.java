@@ -10,4 +10,3 @@ public class CommentDaoImpl extends GenericDaoImpl<Comment> implements CommentDa
     super(Comment.class);
   }
 }
-

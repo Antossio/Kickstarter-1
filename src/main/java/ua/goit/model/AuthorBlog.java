@@ -26,7 +26,6 @@ public class AuthorBlog {
     this.user = user;
   }
 
-
   public AuthorBlog() {
   }
 
@@ -69,5 +68,4 @@ public class AuthorBlog {
   public void setProject(Project project) {
     this.project = project;
   }
-
 }

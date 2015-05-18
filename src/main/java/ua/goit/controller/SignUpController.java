@@ -40,7 +40,6 @@ public class SignUpController{
 		return "signup";
 	}
 
-
 	@RequestMapping(value = "/signup", method = RequestMethod.POST)
 	public String handleSignUpRequest(Model model,
 			@RequestParam("name") String name,

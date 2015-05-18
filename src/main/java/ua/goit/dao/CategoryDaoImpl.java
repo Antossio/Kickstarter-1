@@ -5,6 +5,7 @@ import ua.goit.model.Category;
 
 @Repository
 public class CategoryDaoImpl extends GenericDaoImpl<Category> implements CategoryDao {
+  
   public CategoryDaoImpl() {
     super(Category.class);
   }
