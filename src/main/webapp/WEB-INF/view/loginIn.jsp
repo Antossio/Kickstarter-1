@@ -7,12 +7,12 @@
 <title>Login</title>
 </head>
 <body>
-	<form action="/kickstarter/loginIn" method="post">
+	<form action="/kickstarter/login" method="post">
 		Login:  <input type="text" name="login"> 
 		Password:  <input type="password" name="password"> 
 
 		 <input type=submit name=submit value="Log In" />
 	</form>
-	<c:set var="state" value="${state}" />
+	
 	</body>
 </html>

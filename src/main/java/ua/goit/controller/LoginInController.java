@@ -1,10 +1,18 @@
 package ua.goit.controller;
 
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,24 +30,26 @@ public class LoginInController {
 	this.loginInService = loginInService;
   }
 
-  @RequestMapping(value = "/loginIn", method = RequestMethod.GET)
-  public String loginForm() {
-	new ModelAndView("loginIn");
-	return "loginIn" ;
-  }
+//  @RequestMapping(value = "/login", method = RequestMethod.GET)
+//  public String loginForm() {
+//	new ModelAndView("loginIn");
+//	return "loginIn" ;
+//  }
 
-  @RequestMapping(value = "/loginIn", method = RequestMethod.POST)
-  public String process(
-	  @RequestParam("login") String login,
-	  @RequestParam("password") String password, Model model) {
+  @RequestMapping(value = "/login", method = RequestMethod.POST)
+
+  public RedirectView process(@RequestParam("login") String login, @RequestParam("password") String password, 
+	  Model model, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+	request.getAttribute("login");
+	request.getAttribute("password");
+	RedirectView result;
 	User user = loginInService.getUser(login);
 	Boolean state = loginInService.checkPassword(user, password);
-	String result;
 	if (state == true) {
-	  result = "redirect:categories" ;
-	} else 
-	  result = "signup"; //TODO rewrite to redirect:signup when SignupController will done (for clear mapping)
-
+	  Cookie cookie = new Cookie("token", user.getToken());
+	  response.addCookie(cookie);
+	  result = new RedirectView("http://localhost:8080/kickstarter/");
+	} else result = new RedirectView("signup"); //TODO rewrite to redirect:signup when SignupController will done (for clear mapping)
 	return result;
   }
 }

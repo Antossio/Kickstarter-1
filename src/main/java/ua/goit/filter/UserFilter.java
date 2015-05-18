@@ -3,12 +3,15 @@ package ua.goit.filter;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
 import ua.goit.model.User;
 import ua.goit.service.UserService;
 
 import javax.servlet.*;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import java.io.IOException;
 
 @Component("UserFilter")
@@ -19,7 +22,7 @@ public class UserFilter implements Filter {
 
   @Autowired
   public UserFilter(UserService userService) {
-    this.userService = userService;
+	this.userService = userService;
   }
 
   @Override
@@ -28,21 +31,33 @@ public class UserFilter implements Filter {
 
   @Override
   public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-    HttpServletRequest req = (HttpServletRequest) request;
-    Cookie[] cookies = req.getCookies();
-    String tokenValue = null;
-    if (cookies != null) {
-      for (Cookie c : cookies) {
-        if (token.equals(c.getName())) {
-          tokenValue = c.getValue();
-          User user = userService.findByToken(tokenValue);
-          req.setAttribute("userID", user.getId());
-        }
-      }
-    }
-    chain.doFilter(req, response);
+	HttpServletRequest req = (HttpServletRequest) request;
+	HttpServletResponse res = (HttpServletResponse) response;
+	Cookie[] cookies = req.getCookies();
+	String tokenValue;
+	if (cookies != null) {
+	  for (Cookie c : cookies) {
+		if (token.equals(c.getName())) {
+		  tokenValue = c.getValue();
+		  User user = userService.findByToken((tokenValue));
+		  req.setAttribute("userID", String.valueOf(user.getId()));
+		  req.setAttribute("isLogged", "true");
+		} 
+	  } 
+	}
+	
+	if (req.getRequestURI().equals("/kickstarter/logout")) {
+	  req.setAttribute("isLogged", "false");
+	  Cookie[] cookie = req.getCookies();
+	  for (Cookie c : cookie) {
+		if (token.equals(c.getName())) {
+		  c.setMaxAge(0);
+		  res.addCookie(c);
+		}
+	  }
+	}
+	chain.doFilter(req, res);
   }
-
   @Override
   public void destroy() {
 
