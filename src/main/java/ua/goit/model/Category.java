@@ -3,6 +3,7 @@ package ua.goit.model;
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.List;
+
 @Entity
 public class Category {
   @Id
@@ -15,48 +16,47 @@ public class Category {
   private Timestamp timestamp;
 
   public Category(Integer id, String name, Timestamp timestamp) {
-    this.id = id;
-    this.name = name;
-    this.timestamp = timestamp;
+	this.id = id;
+	this.name = name;
+	this.timestamp = timestamp;
   }
 
   public Category(String name) {
-    this.name = name;
+	this.name = name;
   }
 
   public Category() {
   }
 
   public Timestamp getTimestamp() {
-    return timestamp;
+	return timestamp;
   }
 
   public void setTimestamp(Timestamp timestamp) {
-    this.timestamp = timestamp;
+	this.timestamp = timestamp;
   }
 
   public Integer getId() {
-    return id;
+	return id;
   }
 
   public void setId(Integer id) {
-    this.id = id;
+	this.id = id;
   }
 
   public String getName() {
-    return name;
+	return name;
   }
 
   public void setName(String categoryName) {
-    this.name = categoryName;
+	this.name = categoryName;
   }
 
   public List<Project> getListOfProject() {
-    return projectList;
+	return projectList;
   }
 
   public void setListOfProject(List<Project> projectList) {
-    this.projectList = projectList;
+	this.projectList = projectList;
   }
-
 }

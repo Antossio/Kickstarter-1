@@ -1,6 +1,5 @@
 package ua.goit.controller;
 
-
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,7 +12,6 @@ import ua.goit.model.Category;
 import ua.goit.model.Project;
 import ua.goit.service.CategoryService;
 import ua.goit.service.ProjectService;
-
 import java.util.List;
 
 @Controller
@@ -44,5 +42,3 @@ public class CategoryController {
     return "categories";
   }
 }
-
-

@@ -4,6 +4,7 @@
     <title></title>
 </head>
 <body>
+ <%@ include file="header.jsp"%>
   <p>Check your email</p>
 </body>
 </html>

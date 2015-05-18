@@ -7,11 +7,13 @@ import ua.goit.model.User;
 
 import javax.transaction.Transactional;
 import java.util.List;
+
 @Transactional
 @Service
 public class UserServiceImpl implements UserService {
 
   private final UserDao userDao;
+  
   @Autowired
   public UserServiceImpl(UserDao userDao) {
     this.userDao = userDao;

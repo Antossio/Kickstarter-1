@@ -3,7 +3,6 @@ package ua.goit.dao;
 import org.apache.log4j.Logger;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import java.util.List;
 
 public abstract class GenericDaoImpl<T> implements GenericDao<T> {

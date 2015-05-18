@@ -4,6 +4,7 @@
     <title></title>
 </head>
 <body>
+ <%@ include file="header.jsp"%>
     <p>Congratulations, you are registered</p>
 </body>
 </html>

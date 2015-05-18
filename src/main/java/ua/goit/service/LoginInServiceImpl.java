@@ -29,8 +29,7 @@ public class LoginInServiceImpl implements LoginInService {
       String pass = user.getPassword();
       return pass.equals(password);
     } else {
-    	//throw new RuntimeException("User not found!!!");
-        return false;
+    	return false;
     }
   }
 

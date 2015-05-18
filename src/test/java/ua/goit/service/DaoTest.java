@@ -41,6 +41,4 @@ public class DaoTest {
     CategoryService categoryService = new CategoryServiceImpl(categoryDao);
     Assert.assertEquals(categoryList, categoryService.getAll());
   }
-
-
 }
