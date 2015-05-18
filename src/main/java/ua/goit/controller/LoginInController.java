@@ -29,13 +29,13 @@ public class LoginInController {
   public LoginInController(LoginInService loginInService) {
 	this.loginInService = loginInService;
   }
+ 
   @RequestMapping(value = "/login",method = RequestMethod.GET)
+  
   public ModelAndView process(ModelAndView model) {
 	return new ModelAndView ("loginIn");
   }
-  
-  
-  
+    
   @RequestMapping(value = "/login", method = RequestMethod.POST)
 
   public RedirectView process(@RequestParam("login") String login, @RequestParam("password") String password, 
