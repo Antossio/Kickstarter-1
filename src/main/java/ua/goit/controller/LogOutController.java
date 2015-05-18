@@ -42,6 +42,6 @@ public class LogOutController {
   
   @RequestMapping(value = "/logout",method = RequestMethod.GET)
   public void redirectFromLogout(Model model, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	response.sendRedirect("/kickstarter/");
+	response.sendRedirect("/kickstarter/home");
   }
 }

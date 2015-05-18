@@ -11,7 +11,6 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -30,12 +29,6 @@ public class LoginInController {
 	this.loginInService = loginInService;
   }
 
-//  @RequestMapping(value = "/login", method = RequestMethod.GET)
-//  public String loginForm() {
-//	new ModelAndView("loginIn");
-//	return "loginIn" ;
-//  }
-
   @RequestMapping(value = "/login", method = RequestMethod.POST)
 
   public RedirectView process(@RequestParam("login") String login, @RequestParam("password") String password, 
@@ -48,8 +41,10 @@ public class LoginInController {
 	if (state == true) {
 	  Cookie cookie = new Cookie("token", user.getToken());
 	  response.addCookie(cookie);
-	  result = new RedirectView("http://localhost:8080/kickstarter/");
-	} else result = new RedirectView("signup"); //TODO rewrite to redirect:signup when SignupController will done (for clear mapping)
+	  result = new RedirectView("http://localhost:8080/kickstarter/home");
+	} else 
+	  result = new RedirectView("http://localhost:8080/kickstarter/signup"); 
+	
 	return result;
   }
 }

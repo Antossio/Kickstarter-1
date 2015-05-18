@@ -16,6 +16,7 @@ import java.io.IOException;
 
 @Component("UserFilter")
 public class UserFilter implements Filter {
+
   private static final Logger logger = Logger.getLogger(UserFilter.class);
   private final UserService userService;
   private String token = "token";
@@ -41,13 +42,13 @@ public class UserFilter implements Filter {
 		  tokenValue = c.getValue();
 		  User user = userService.findByToken((tokenValue));
 		  req.setAttribute("userID", String.valueOf(user.getId()));
-		  req.setAttribute("isLogged", "true");
+		  req.setAttribute("isLoggedIn", "true");
 		} 
 	  } 
 	}
 	
 	if (req.getRequestURI().equals("/kickstarter/logout")) {
-	  req.setAttribute("isLogged", "false");
+	  req.setAttribute("isLoggedIn", "false");
 	  Cookie[] cookie = req.getCookies();
 	  for (Cookie c : cookie) {
 		if (token.equals(c.getName())) {
@@ -58,8 +59,8 @@ public class UserFilter implements Filter {
 	}
 	chain.doFilter(req, res);
   }
+  
   @Override
   public void destroy() {
-
   }
 }
