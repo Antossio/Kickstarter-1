@@ -11,6 +11,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -28,7 +29,13 @@ public class LoginInController {
   public LoginInController(LoginInService loginInService) {
 	this.loginInService = loginInService;
   }
-
+  @RequestMapping(value = "/login",method = RequestMethod.GET)
+  public ModelAndView process(ModelAndView model) {
+	return new ModelAndView ("loginIn");
+  }
+  
+  
+  
   @RequestMapping(value = "/login", method = RequestMethod.POST)
 
   public RedirectView process(@RequestParam("login") String login, @RequestParam("password") String password, 

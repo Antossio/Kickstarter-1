@@ -13,7 +13,7 @@
                 <h3 class="panel-title">Please login In</h3>
             </div>
             <div class="panel-body">
-                <form role="form" action="/kickstarter/loginIn" method="post">
+                <form role="form" action="/kickstarter/login" method="post">
 
                     <div class="form-group">
                         <input type="text" name="login"

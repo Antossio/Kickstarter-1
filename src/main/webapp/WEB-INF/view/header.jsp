@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<<<<<<< HEAD
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
@@ -25,7 +25,7 @@
                     <ul class="nav navbar-nav navbar-right">
                     <li><a href="/kickstarter/profile"><span
                             class="glyphicon glyphicon-user"></span><c:out
-                            value="${user.name}"/></a></li>
+                            value="${userName}"/></a></li>
                     <li><a href="/kickstarter/logout">Log out</a></li>
                     </ul>
                 </c:when>
@@ -34,7 +34,7 @@
                         <li><a href="/kickstarter/signup"><span
                                 class="glyphicon glyphicon-user"></span> Sign Up</a>
                         </li>
-                        <li><a href="/kickstarter/loginIn"><span
+                        <li><a href="/kickstarter/login"><span
                                 class="glyphicon glyphicon-log-in"></span> Login</a>
                         </li>
                     </ul>

@@ -41,6 +41,7 @@ public class UserFilter implements Filter {
 		if (token.equals(c.getName())) {
 		  tokenValue = c.getValue();
 		  User user = userService.findByToken((tokenValue));
+		  req.setAttribute("userName", user.getName());
 		  req.setAttribute("userID", String.valueOf(user.getId()));
 		  req.setAttribute("isLoggedIn", "true");
 		} 
