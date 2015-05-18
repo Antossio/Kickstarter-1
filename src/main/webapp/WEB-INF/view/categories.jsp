@@ -42,3 +42,15 @@
 </body>
 </html>
 
+
+
+	<c:forEach var="project" items="${projects}">
+		<ul>
+			<li><a href="project?project=<c:out value="${project.id}"/>">
+					<c:out value="${project.projectName}" />
+			</a></li>
+		</ul>
+	</c:forEach>
+
+</body>
+</html>

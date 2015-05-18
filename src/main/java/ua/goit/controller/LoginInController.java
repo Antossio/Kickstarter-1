@@ -18,7 +18,6 @@ import ua.goit.model.User;
 import ua.goit.service.LoginInService;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 
 @Controller

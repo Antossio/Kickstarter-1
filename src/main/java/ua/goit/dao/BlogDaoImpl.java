@@ -1,6 +1,5 @@
 package ua.goit.dao;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import ua.goit.model.AuthorBlog;
 

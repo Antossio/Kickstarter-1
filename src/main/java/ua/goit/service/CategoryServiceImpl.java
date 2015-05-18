@@ -7,6 +7,7 @@ import ua.goit.model.Category;
 
 import javax.transaction.Transactional;
 import java.util.List;
+
 @Transactional
 @Service
 public class CategoryServiceImpl implements CategoryService {

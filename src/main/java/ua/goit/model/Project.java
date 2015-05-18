@@ -6,105 +6,106 @@ import java.util.List;
 
 @Entity
 public class Project {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-    private String name;
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "Category_id")
-    private Category category;
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "User_id")
-    private User user;
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Timestamp timestamp;
-    private String shortDesc;
-    private String longDesc;
-    private String link;
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "project")
-    private List<Comment> commentList;
-    
-    public Project() {
-    }
 
-    public Project(String name, Category category, User user, String shortDesc, String longDesc, String link) {
-        this.name = name;
-        this.category = category;
-        this.user = user;
-        this.shortDesc = shortDesc;
-        this.longDesc = longDesc;
-        this.link = link;
-    }
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Integer id;
+  private String name;
+  @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @JoinColumn(name = "Category_id")
+  private Category category;
+  @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @JoinColumn(name = "User_id")
+  private User user;
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Timestamp timestamp;
+  private String shortDesc;
+  private String longDesc;
+  private String link;
+  @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "project")
+  private List<Comment> commentList;
 
-    public List<Comment> getCommentList() {
-        return commentList;
-    }
+  public Project() {
+  }
 
-    public void setCommentList(List<Comment> commentList) {
-        this.commentList = commentList;
-    }
+  public Project(String name, Category category, User user, String shortDesc, String longDesc, String link) {
+    this.name = name;
+    this.category = category;
+    this.user = user;
+    this.shortDesc = shortDesc;
+    this.longDesc = longDesc;
+    this.link = link;
+  }
 
-    public Integer getId() {
-        return id;
-    }
+  public List<Comment> getCommentList() {
+    return commentList;
+  }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+  public void setCommentList(List<Comment> commentList) {
+    this.commentList = commentList;
+  }
 
-    public String getName() {
-        return name;
-    }
+  public Integer getId() {
+    return id;
+  }
 
-    public void setName(String projectName) {
-        this.name = projectName;
-    }
+  public void setId(Integer id) {
+    this.id = id;
+  }
 
-    public Category getCategory() {
-        return category;
-    }
+  public String getName() {
+    return name;
+  }
 
-    public void setCategory(Category category) {
-        this.category = category;
-    }
+  public void setName(String projectName) {
+    this.name = projectName;
+  }
 
-    public User getUser() {
-        return user;
-    }
+  public Category getCategory() {
+    return category;
+  }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
+  public void setCategory(Category category) {
+    this.category = category;
+  }
 
-    public Timestamp getTimestamp() {
-        return timestamp;
-    }
+  public User getUser() {
+    return user;
+  }
 
-    public void setTimestamp(Timestamp timestamp) {
-        this.timestamp = timestamp;
-    }
+  public void setUser(User user) {
+    this.user = user;
+  }
 
-    public String getShortDesc() {
-        return shortDesc;
-    }
+  public Timestamp getTimestamp() {
+    return timestamp;
+  }
 
-    public void setShortDesc(String shortDesc) {
-        this.shortDesc = shortDesc;
-    }
+  public void setTimestamp(Timestamp timestamp) {
+    this.timestamp = timestamp;
+  }
 
-    public String getLongDesc() {
-        return longDesc;
-    }
+  public String getShortDesc() {
+    return shortDesc;
+  }
 
-    public void setLongDesc(String longDesc) {
-        this.longDesc = longDesc;
-    }
+  public void setShortDesc(String shortDesc) {
+    this.shortDesc = shortDesc;
+  }
 
-    public String getLink() {
-        return link;
-    }
+  public String getLongDesc() {
+    return longDesc;
+  }
 
-    public void setLink(String link) {
-        this.link = link;
-    }
+  public void setLongDesc(String longDesc) {
+    this.longDesc = longDesc;
+  }
+
+  public String getLink() {
+    return link;
+  }
+
+  public void setLink(String link) {
+    this.link = link;
+  }
 }

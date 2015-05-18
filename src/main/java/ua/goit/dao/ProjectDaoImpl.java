@@ -4,13 +4,11 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 import ua.goit.model.Project;
-
 import java.util.List;
 
 @Repository
 
 public class ProjectDaoImpl extends GenericDaoImpl<Project> implements ProjectDao {
-
   ProjectDaoImpl() {
     super(Project.class);
   }
@@ -35,6 +33,4 @@ public class ProjectDaoImpl extends GenericDaoImpl<Project> implements ProjectDa
     Session currentSession = sessionFactory.getCurrentSession();
     return currentSession.createQuery(sql);
   }
-
 }
-
