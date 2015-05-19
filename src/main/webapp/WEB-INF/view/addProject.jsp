@@ -4,14 +4,13 @@
 <html>
 <head>
 <title>Add project</title>
-<link href="/WEB-INF/view/style.css" rel="stylesheet">
 </head>
 <body>
 	<%@ include file="header.jsp"%>
 	<%@include file="menu.jsp"%>
 
-	<div class="main">
-		<form action="/kickstarter/project" method="post"
+	<div>
+		<form action="/kickstarter/projects" method="post"
 			enctype=multipart/form-data>
 			<label>Category<br> <select name="categories">
 					<c:forEach var="category" items="${categories}">
@@ -26,7 +25,7 @@
 			<textarea name="projectLongDesc" rows=10 cols=30></textarea></label><br>
 			<label>Picture<br>
 			<input type="file" accept="image/*" name="img"></label> <input
-				type="hidden" name="userID" value="<c:out value="${user.id}"/>" /> <input
+				type="hidden" name="userID" value="<c:out value="${userID}"/>" /> <input
 				type="submit" value="Add">
 		</form>
 	</div>

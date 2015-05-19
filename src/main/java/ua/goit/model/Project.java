@@ -6,6 +6,7 @@ import java.util.List;
 
 @Entity
 public class Project {
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
@@ -28,83 +29,83 @@ public class Project {
   }
 
   public Project(String name, Category category, User user, String shortDesc, String longDesc, String link) {
-	this.name = name;
-	this.category = category;
-	this.user = user;
-	this.shortDesc = shortDesc;
-	this.longDesc = longDesc;
-	this.link = link;
+    this.name = name;
+    this.category = category;
+    this.user = user;
+    this.shortDesc = shortDesc;
+    this.longDesc = longDesc;
+    this.link = link;
   }
 
   public List<Comment> getCommentList() {
-	return commentList;
+    return commentList;
   }
 
   public void setCommentList(List<Comment> commentList) {
-	this.commentList = commentList;
+    this.commentList = commentList;
   }
 
   public Integer getId() {
-	return id;
+    return id;
   }
 
   public void setId(Integer id) {
-	this.id = id;
+    this.id = id;
   }
 
   public String getName() {
-	return name;
+    return name;
   }
 
   public void setName(String projectName) {
-	this.name = projectName;
+    this.name = projectName;
   }
 
   public Category getCategory() {
-	return category;
+    return category;
   }
 
   public void setCategory(Category category) {
-	this.category = category;
+    this.category = category;
   }
 
   public User getUser() {
-	return user;
+    return user;
   }
 
   public void setUser(User user) {
-	this.user = user;
+    this.user = user;
   }
 
   public Timestamp getTimestamp() {
-	return timestamp;
+    return timestamp;
   }
 
   public void setTimestamp(Timestamp timestamp) {
-	this.timestamp = timestamp;
+    this.timestamp = timestamp;
   }
 
   public String getShortDesc() {
-	return shortDesc;
+    return shortDesc;
   }
 
   public void setShortDesc(String shortDesc) {
-	this.shortDesc = shortDesc;
+    this.shortDesc = shortDesc;
   }
 
   public String getLongDesc() {
-	return longDesc;
+    return longDesc;
   }
 
   public void setLongDesc(String longDesc) {
-	this.longDesc = longDesc;
+    this.longDesc = longDesc;
   }
 
   public String getLink() {
-	return link;
+    return link;
   }
 
   public void setLink(String link) {
-	this.link = link;
+    this.link = link;
   }
 }
