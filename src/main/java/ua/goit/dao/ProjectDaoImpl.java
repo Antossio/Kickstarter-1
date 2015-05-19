@@ -15,9 +15,9 @@ public class ProjectDaoImpl extends GenericDaoImpl<Project> implements ProjectDa
 
   @Override
   public List<Project> getProjectsByUserId(Integer id) {
-    String sql = "from Project where User_id =:User_id";
+    String sql = "from Project where Users_id =:Users_id";
     Query query = getQuery(sql);
-    List<Project> list = query.setParameter("User_id", id).list();
+    List<Project> list = query.setParameter("Users_id", id).list();
     return list;
   }
 

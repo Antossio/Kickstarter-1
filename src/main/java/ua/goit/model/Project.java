@@ -15,7 +15,7 @@ public class Project {
   @JoinColumn(name = "Category_id")
   private Category category;
   @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-  @JoinColumn(name = "User_id")
+  @JoinColumn(name = "Users_id")
   private User user;
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Timestamp timestamp;
