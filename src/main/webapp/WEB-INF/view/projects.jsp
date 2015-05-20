@@ -1,24 +1,37 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ include file="prefixes.jsp" %>
 <html>
 <head>
-<title>Projects</title>
-
+    <%@include file="cssJs.jsp" %>
+    <title>Projects</title>
 </head>
 <body>
-	<%@ include file="header.jsp"%>
-	<div>
-		<p>List of projects</p><br>
-		<c:forEach var="project" items="${projects}">
-			<div>
-			<ul>
-				<li><img src="<c:out value="${project.link}"/>"></li>
-				<li><a href="/kickstarter/projects/<c:out value="${project.id}"/>"><c:out value="${project.name}"/></a></li>
-				<li><c:out value="${project.shortDesc}"/></li>
-			</ul>
-			</div>
-		</c:forEach>
-	</div>
+<div class="container-fluid">
+    <div class="row" id="header">
+        <%@ include file="header.jsp" %>
+    </div>
+    <div class="row" id="body">
+
+        <c:forEach var="project" items="${projects}">
+            <div class="col-md-4">
+                <div class="thumbnail my_thumbnail">
+                    <img src="/resources/image/images.jpg" alt="">
+
+                    <div class="caption">
+                        <h3><c:out value="${project.name}"/></h3>
+
+                        <p><c:out value="${project.shortDesc}"/></p>
+
+                        <p><a href="/kickstarter/projects/<c:out value="${project.id}"/>" class="btn btn-success" role="button">Open
+                            Project</a></p>
+                    </div>
+                </div>
+            </div>
+        </c:forEach>
+    </div>
+    <div class="row" id="footer">
+
+    </div>
+</div>
 </body>
 </html>

@@ -1,12 +1,24 @@
 <%@ include file="prefixes.jsp"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <%@include file="cssJs.jsp"%>
 <title>Profile</title>
 </head>
 <body>
-	<%@include file="header.jsp"%>
-	<%@include file="menu.jsp"%>
+<div class="container-fluid">
+	<div class="row" id="header">
+		<%@ include file="header.jsp" %>
+	</div>
+	<div class="row" id="body">
+		<div class="col-md-3" id="menu">
+			<%@include file="menu.jsp" %>
+		</div>
+		<div class="col-md-9 context">
+		</div>
+	</div>
+	<div class="row" id="footer">
+
+	</div>
+</div>
 </body>
 </html>

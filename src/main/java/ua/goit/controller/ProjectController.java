@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import org.apache.log4j.Logger;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -95,7 +96,7 @@ public class ProjectController {
   @RequestMapping(value = "/projects/{projectId}", method = RequestMethod.GET)
   public String showProject(Model model,
       @PathVariable int projectId) {
-    Project project = projectService.getById(projectId);     
+    Project project = projectService.getById(projectId);
     model.addAttribute("project", project);
     return "project";
   }

@@ -7,5 +7,5 @@ import java.util.List;
 public interface ProjectService extends GenericService<Project> {
 
   List<Project> getProjectsByCategoryId(Integer categoryId);
-	List<Project> getByUserId(Integer id);
+  List<Project> getByUserId(Integer id);
 }
