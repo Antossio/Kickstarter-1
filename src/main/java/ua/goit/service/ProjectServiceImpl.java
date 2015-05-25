@@ -1,11 +1,14 @@
 package ua.goit.service;
 
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import ua.goit.dao.ProjectDao;
 import ua.goit.model.Project;
 
 import javax.transaction.Transactional;
+
 import java.util.List;
 
 @Transactional
@@ -26,7 +29,9 @@ public class ProjectServiceImpl implements ProjectService {
 
   @Override
   public Project getById(Integer id) {
-    return projectDao.getById(id);
+    Project project = projectDao.getById(id);
+    Hibernate.initialize(project.getUser());
+    return project;
   }
 
   @Override
@@ -50,7 +55,7 @@ public class ProjectServiceImpl implements ProjectService {
   }
 
   @Override
-  public List<Project> getProjectsByCategoryId(Integer categoryId) {
+  public List<Project> getProjectsByCategoryId(Integer categoryId) {    
     return projectDao.getProjectsByCategoryId(categoryId);
   }
 }
