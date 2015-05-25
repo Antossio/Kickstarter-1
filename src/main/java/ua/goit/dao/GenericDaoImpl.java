@@ -3,7 +3,12 @@ package ua.goit.dao;
 import org.apache.log4j.Logger;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import ua.goit.model.Project;
+
 import java.util.List;
+
+import javax.transaction.Transactional;
 
 public abstract class GenericDaoImpl<T> implements GenericDao<T> {
   private final Class<T> tClass;
@@ -22,7 +27,8 @@ public abstract class GenericDaoImpl<T> implements GenericDao<T> {
 
   @Override
   public T getById(Integer id) {
-    return (T) sessionFactory.getCurrentSession().load(tClass, id);
+    return (T) sessionFactory.getCurrentSession().get(tClass, id);
+    
   }
 
   @Override
