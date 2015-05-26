@@ -1,17 +1,40 @@
-<%@ include file="prefixes.jsp"%>
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ include file="prefixes.jsp" %>
 <html>
 <head>
-<%@include file="cssJs.jsp"%>
-<title>Add project</title>
+    <%@include file="cssJs.jsp" %>
+    <title>Add project</title>
 </head>
 <body>
-	<%@include file="header.jsp"%>
-	<%@include file="menu.jsp"%>
-	<a href="/kickstarter/addProject">Add project</a>
-	<c:forEach var="project" items="${projects}">
-		<li><c:out value="${project.name}" /></li>
-	</c:forEach>
+<div class="container-fluid">
+    <div class="row" id="header">
+        <%@ include file="header.jsp" %>
+    </div>
+    <div class="row" id="body">
+        <div class="col-md-3" id="menu">
+            <%@include file="menu.jsp" %>
+        </div>
+        <div class="col-md-9 context">
+            <h1>My Projects</h1>
+            <div class="row">
+                <c:forEach var="project" items="${projects}">
+                <div class="col-sm-6 col-md-4">
+                    <div class="thumbnail my_thumbnail">
+                        <img src="/resources/image/images.jpg" alt="">
+                        <div class="caption">
+                            <h3><c:out value="${project.name}"/></h3>
+                            <p><c:out value="${project.shortDesc}"/></p>
+                            <p><a href="/kickstarter/projects/<c:out value="${project.id}"/>"  class="btn btn-success" role="button">Open Project</a> </p>
+                        </div>
+                    </div>
+                </div>
+                </c:forEach>
+            </div>
+        </div>
+    </div>
+    <div class="row" id="footer">
+
+    </div>
+</div>
+
 </body>
 </html>

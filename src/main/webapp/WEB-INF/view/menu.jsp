@@ -1,7 +1,5 @@
- <div class="menu">
-      <ul>
-        <li><a href="/kickstarter/addCategory">Categories</a></li>
-        <li><a href="/kickstarter/projects">Projects</a></li>
-        <li><a href="/kickstarter/forum">Comments</a></li>
-      </ul>
-</div>
+    <ul class="nav nav-pills nav-stacked menuSet">
+        <li><a href="/kickstarter/addCategory">Category</a></li>
+        <li><a href="/kickstarter/projects">Project</a></li>
+        <li><a href="#">Forum</a></li>
+    </ul>

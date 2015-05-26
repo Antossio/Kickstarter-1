@@ -94,8 +94,8 @@ public class ProjectController {
   
   @RequestMapping(value = "/projects/{projectId}", method = RequestMethod.GET)
   public String showProject(Model model,
-      @PathVariable Integer projectId) {
-    Project project = projectService.getById(projectId);     
+      @PathVariable int projectId) {
+    Project project = projectService.getById(projectId);
     model.addAttribute("project", project);
     return "project";
   }

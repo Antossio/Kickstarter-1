@@ -15,7 +15,6 @@
 				</div>
 				<div class="panel-body">
 					<form role="form" action="/kickstarter/login" method="post">
-
 						<div class="form-group">
 							<input type="text" name="login" class="form-control input-sm"
 								placeholder="Login">
