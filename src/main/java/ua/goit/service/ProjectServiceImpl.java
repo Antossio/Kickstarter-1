@@ -31,6 +31,7 @@ public class ProjectServiceImpl implements ProjectService {
   public Project getById(Integer id) {
     Project project = projectDao.getById(id);
     Hibernate.initialize(project.getUser());
+    Hibernate.initialize(project.getCategory());    
     return project;
   }
 
