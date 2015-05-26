@@ -7,5 +7,5 @@ public interface GenericService<T> {
   T getById(Integer id);
   List<T> getAll();
   void update(T entity);
-  void remove(T entity);
+  void remove(Integer id);
 }

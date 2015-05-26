@@ -3,6 +3,7 @@ package ua.goit.model;
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "Users")
@@ -24,6 +25,12 @@ public class User {
   private List<Comment> commentList;
   @OneToMany(cascade = CascadeType.ALL, fetch =  FetchType.LAZY, mappedBy = "user")
   private List<AuthorBlog> authorBlogsList;
+  @ManyToMany(cascade = CascadeType.ALL)
+  @JoinTable(name = "user_UserRole", joinColumns = {
+          @JoinColumn(name = "id", nullable = false, updatable = false) },
+          inverseJoinColumns = { @JoinColumn(name = "CATEGORY_ID",
+                  nullable = false, updatable = false) })
+  Set<UserRoles> userRoles;
 
   public User(Integer id, String name, String login, String password, String token, Timestamp timestamp, List<AuthorBlog> authorBlogsList) {
 	this.id = id;

@@ -7,7 +7,9 @@
         <mapping class="ua.goit.model.Category"/>
         <mapping class="ua.goit.model.User"/>
         <mapping class="ua.goit.model.AuthorBlog"/>
-        <mapping class="ua.goit.model.Comment"/>    
+        <mapping class="ua.goit.model.Comment"/>
+        <mapping class="ua.goit.model.UserRoles"/>
+
     </session-factory>
 </hibernate-configuration>
 
