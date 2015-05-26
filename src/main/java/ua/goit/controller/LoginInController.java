@@ -27,29 +27,26 @@ public class LoginInController {
 
   @Autowired
   public LoginInController(LoginInService loginInService) {
-	this.loginInService = loginInService;
+    this.loginInService = loginInService;
   }
- 
-  @RequestMapping(value = "/login",method = RequestMethod.GET)
+
+  @RequestMapping(value = "/login", method = RequestMethod.GET)
   public ModelAndView process(ModelAndView model) {
-	return new ModelAndView ("loginIn");
+    return new ModelAndView("loginIn");
   }
-    
+
   @RequestMapping(value = "/login", method = RequestMethod.POST)
-  public RedirectView process(@RequestParam("login") String login, @RequestParam("password") String password, 
-	  Model model, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-	request.getAttribute("login");
-	request.getAttribute("password");
-	RedirectView result;
-	User user = loginInService.getUser(login);
-	Boolean state = loginInService.checkPassword(user, password);
-	if (state == true) {
-	  Cookie cookie = new Cookie("token", user.getToken());
-	  response.addCookie(cookie);
-	  result = new RedirectView("http://localhost:8080/kickstarter/home");
-	} else { 
-	  result = new RedirectView("http://localhost:8080/kickstarter/signup");
-	}
-	return result;
+  public String process(@RequestParam("login") String login, @RequestParam("password") String password, Model model, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    request.getAttribute("login");
+    request.getAttribute("password");
+    User user = loginInService.getUser(login);
+    Boolean state = loginInService.checkPassword(user, password);
+    if (state == true) {
+      Cookie cookie = new Cookie("token", user.getToken());
+      response.addCookie(cookie);
+      return "redirect:/kickstarter/home";
+    } else {
+      return "redirect:/kickstarter/signup";
+    }
   }
 }
