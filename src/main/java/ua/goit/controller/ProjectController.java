@@ -4,7 +4,9 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,10 +17,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import ua.goit.model.Category;
+import ua.goit.model.Project;
+import ua.goit.model.User;
 import ua.goit.service.CategoryService;
 import ua.goit.service.ProjectService;
 import ua.goit.service.UserService;
-import ua.goit.model.*;
 
 @Controller
 public class ProjectController {
@@ -57,46 +61,99 @@ public class ProjectController {
       @RequestParam("projectShortDesc") String projectShortDesc, 
       @RequestParam("projectLongDesc") String projectLongDesc,
       @RequestParam("userID") String userIdString,
+      @RequestParam("linkToFile") String linkToFile,      
       @RequestParam("img") MultipartFile file) { 
-    String linkToFile;
     int categoryId = Integer.parseInt(categoryIdString);
     int userId = Integer.parseInt(userIdString);
     Category categoryObject = categoryService.getById(categoryId);
     User userObject = userService.getById(userId);   
     if (!file.isEmpty()) {
-      try {
-        byte[] bytes = file.getBytes();
-        // Creating the directory to store file
-        String rootPath = System.getProperty("catalina.home");
-        File dir = new File(rootPath + File.separator + "tmpFiles");
-        if (!dir.exists()) {
-          dir.mkdirs();
-        }
-        // Create the file on server
-        linkToFile = dir.getAbsolutePath() + File.separator + file.getOriginalFilename();
-        File serverFile = new File(linkToFile);
-        BufferedOutputStream stream = new BufferedOutputStream(
-            new FileOutputStream(serverFile));
-        stream.write(bytes);
-        stream.close();
-        logger.info("Server File Location=" + serverFile.getAbsolutePath());
-      } catch (Exception e) {
-        return "error";
-      }
-    } else {
-      return "error";
-    }
+     linkToFile = saveToFile(file);
+    } 
     projectService.add(new Project(projectName, categoryObject, userObject, projectShortDesc, projectLongDesc, linkToFile));
     List<Project> projectList = projectService.getByUserId(userId);		
     model.addAttribute("projects", projectList);
     return "listProjects";
   }
-  
+
+  @RequestMapping(value = "/updateProject/{projectId}", method = RequestMethod.POST)
+  public String updateProject(Model model,  
+      @PathVariable int projectId,
+      @RequestParam("categories") String categoryIdString,
+      @RequestParam("projectName") String projectName,
+      @RequestParam("projectShortDesc") String projectShortDesc, 
+      @RequestParam("projectLongDesc") String projectLongDesc,
+      @RequestParam("userID") String userIdString,
+      @RequestParam("linkToFile") String linkToFile,      
+      @RequestParam("img") MultipartFile file) { 
+    int categoryId = Integer.parseInt(categoryIdString);
+    int userId = Integer.parseInt(userIdString);
+    Category categoryObject = categoryService.getById(categoryId);
+    if (!file.isEmpty()) {
+      linkToFile = saveToFile(file);
+    } 
+    Project project = projectService.getById(projectId);
+    project.setCategory(categoryObject);
+    project.setName(projectName);
+    project.setShortDesc(projectShortDesc);
+    project.setLongDesc(projectLongDesc);
+    project.setLink(linkToFile);    
+    projectService.update(project);
+    List<Project> projectList = projectService.getByUserId(userId);     
+    model.addAttribute("projects", projectList);
+    return "listProjects";
+  }
+
   @RequestMapping(value = "/projects/{projectId}", method = RequestMethod.GET)
   public String showProject(Model model,
       @PathVariable int projectId) {
     Project project = projectService.getById(projectId);
     model.addAttribute("project", project);
     return "project";
+  }
+
+  @RequestMapping(value = "/updateProjects/{projectId}", method = RequestMethod.GET)
+  public String updateFormProject(Model model,
+      @PathVariable int projectId) {
+    Project project = projectService.getById(projectId);
+    List<Category> categories = categoryService.getAll();
+    model.addAttribute("categories", categories);
+    model.addAttribute("project", project);
+    return "updateProject";
+  }
+
+  @RequestMapping(value = "/dropProjects/{projectId}", method = RequestMethod.GET)
+  public String dropProject(Model model,
+      @PathVariable int projectId) {
+ //   Project project = projectService.getById(projectId);
+    projectService.remove(projectService.getById(projectId));
+    List<Category> categories = categoryService.getAll();
+    model.addAttribute("categories", categories);   
+    return "updateProject";
+  }
+  
+  
+  public String saveToFile(MultipartFile file) {
+    String linkToFile;
+    try {
+      byte[] bytes = file.getBytes();
+      // Creating the directory to store file
+      String rootPath = System.getProperty("catalina.home");
+      File dir = new File(rootPath + File.separator + "tmpFiles");
+      if (!dir.exists()) {
+        dir.mkdirs();
+      }
+      // Create the file on server
+      linkToFile = dir.getAbsolutePath() + File.separator + file.getOriginalFilename();
+      File serverFile = new File(linkToFile);
+      BufferedOutputStream stream = new BufferedOutputStream(
+          new FileOutputStream(serverFile));
+      stream.write(bytes);
+      stream.close();
+      logger.info("Server File Location=" + serverFile.getAbsolutePath());
+    } catch (Exception e) {
+      return "error";
+    }
+  return linkToFile;
   }
 }
