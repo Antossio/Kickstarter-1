@@ -62,6 +62,7 @@
                                         project</p>
                                 </div>
                                 <input type="hidden" name="userID" value="<c:out value="${userID}"/>">
+                                <input type="hidden" name="linkToFile" value="/resources/image/images.jpg">
                                 <input type="submit" value="Create Project"
                                        class="btn btn-info btn-block">
                             </form>
