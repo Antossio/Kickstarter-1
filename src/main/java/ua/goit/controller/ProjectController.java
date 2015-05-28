@@ -18,9 +18,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import ua.goit.model.Category;
+import ua.goit.model.Comment;
 import ua.goit.model.Project;
 import ua.goit.model.User;
 import ua.goit.service.CategoryService;
+import ua.goit.service.CommentService;
 import ua.goit.service.ProjectService;
 import ua.goit.service.UserService;
 
@@ -30,12 +32,15 @@ public class ProjectController {
   private final ProjectService projectService;
   private final CategoryService categoryService;
   private final UserService userService;
+  private final CommentService commentService;
+  
 
   @Autowired
-  public ProjectController(ProjectService projectService, CategoryService categoryService, UserService userService) {
+  public ProjectController(ProjectService projectService, CategoryService categoryService, UserService userService, CommentService commentService) {
     this.projectService = projectService;
     this.categoryService = categoryService;
-    this.userService = userService;		
+    this.userService = userService;
+    this.commentService = commentService;
   }	
 
   @RequestMapping(value = "/addProject", method = RequestMethod.GET)
@@ -108,7 +113,9 @@ public class ProjectController {
   public String showProject(Model model,
       @PathVariable int projectId) {
     Project project = projectService.getById(projectId);
+    List <Comment> comments = project.getCommentList();
     model.addAttribute("project", project);
+    model.addAttribute("comments", comments);    
     return "project";
   }
 
@@ -124,22 +131,23 @@ public class ProjectController {
 
   @RequestMapping(value = "/dropProjects/{projectId}", method = RequestMethod.GET)
   public String dropProject(Model model,
+      HttpServletRequest req,
       @PathVariable int projectId) {
  //   Project project = projectService.getById(projectId);
-    projectService.remove(projectService.getById(projectId));
-    List<Category> categories = categoryService.getAll();
-    model.addAttribute("categories", categories);   
-    return "updateProject";
+    projectService.remove(projectId);
+    int userId = Integer.parseInt((String)req.getAttribute("userID"));
+    List<Project> projectList = projectService.getByUserId(userId);     
+    model.addAttribute("projects", projectList);   
+    return "listProjects";
   }
-  
-  
+    
   public String saveToFile(MultipartFile file) {
     String linkToFile;
     try {
       byte[] bytes = file.getBytes();
       // Creating the directory to store file
       String rootPath = System.getProperty("catalina.home");
-      File dir = new File(rootPath + File.separator + "tmpFiles");
+      File dir = new File(rootPath + File.separator + "image");
       if (!dir.exists()) {
         dir.mkdirs();
       }

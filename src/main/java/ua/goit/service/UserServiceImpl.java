@@ -40,8 +40,8 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public void remove(User entity) {
-    userDao.remove(entity);
+  public void remove(Integer id) {
+    userDao.remove(id);
   }
 
   @Override

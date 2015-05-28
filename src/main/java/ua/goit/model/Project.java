@@ -11,10 +11,10 @@ public class Project {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
   private String name;
-  @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "Category_id")
   private Category category;
-  @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "Users_id")
   private User user;
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,6 +22,7 @@ public class Project {
   private String shortDesc;
   private String longDesc;
   private String link;
+  private int likesQty;
   @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "project")
   private List<Comment> commentList;
 
@@ -35,6 +36,7 @@ public class Project {
     this.shortDesc = shortDesc;
     this.longDesc = longDesc;
     this.link = link;
+    this.likesQty = 0;
   }
 
   public List<Comment> getCommentList() {
@@ -108,4 +110,12 @@ public class Project {
   public void setLink(String link) {
     this.link = link;
   }
+  
+  public void setLikesQty(int likesQty) {
+    this.likesQty = likesQty;
+  }
+  
+  public int getLikesQty() {
+    return likesQty;
+  }  
 }

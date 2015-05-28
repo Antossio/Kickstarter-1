@@ -14,8 +14,7 @@
                             <h3 class="panel-title">Add Category</h3>
                         </div>
                         <div class="panel-body">
-                            <form role="form" action="/kickstarter/categories/"
-                                  method="post">
+                            <form role="form" action="/kickstarter/categories/" method="post">
                                 <div class="form-group">
                                     <input type="text" name="categoryName"
                                            class="form-control input-sm"

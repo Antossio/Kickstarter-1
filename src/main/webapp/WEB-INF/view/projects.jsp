@@ -24,6 +24,7 @@
 
                         <p><a href="/kickstarter/projects/<c:out value="${project.id}"/>" class="btn btn-success" role="button">Open
                             Project</a></p>
+                    <p><a href="" title="Like it">Like </a><c:out value="${project.likesQty}"/></p>
                     </div>
                 </div>
             </div>

@@ -19,7 +19,7 @@
 					<c:forEach var="project" items="${projects}">
 						<div class="col-sm-6 col-md-5">
 							<div class="thumbnail my_thumbnail">
-								<img src="/resources/image/images.jpg" alt="">
+								<img src="<c:out value="${project.link}" />" alt="">
 								<div class="caption">
 									<h3>
 										<c:out value="${project.name}" />

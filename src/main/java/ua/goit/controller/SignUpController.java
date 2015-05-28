@@ -82,7 +82,8 @@ public class SignUpController{
 		}
 		User user = userService.findByActivationKey(activationKey);
 		if (user == null) {
-			return "error";
+		  model.addAttribute("error", "user not found");
+		  return "error";
 		} 
 		String token = 31 * user.getId() + user.getLogin().hashCode() + "";
 		user.setToken(token);

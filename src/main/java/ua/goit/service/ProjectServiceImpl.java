@@ -31,7 +31,8 @@ public class ProjectServiceImpl implements ProjectService {
   public Project getById(Integer id) {
     Project project = projectDao.getById(id);
     Hibernate.initialize(project.getUser());
-    Hibernate.initialize(project.getCategory());    
+    Hibernate.initialize(project.getCategory());
+    Hibernate.initialize(project.getCommentList());    
     return project;
   }
 
@@ -51,8 +52,8 @@ public class ProjectServiceImpl implements ProjectService {
   }
 
   @Override
-  public void remove(Project entity) {
-    projectDao.remove(entity);
+  public void remove(Integer id) {
+    projectDao.remove(id);
   }
 
   @Override
