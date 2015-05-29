@@ -17,10 +17,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import ua.goit.model.AuthorBlog;
 import ua.goit.model.Category;
 import ua.goit.model.Comment;
 import ua.goit.model.Project;
 import ua.goit.model.User;
+import ua.goit.service.BlogService;
 import ua.goit.service.CategoryService;
 import ua.goit.service.CommentService;
 import ua.goit.service.ProjectService;
@@ -33,14 +35,17 @@ public class ProjectController {
   private final CategoryService categoryService;
   private final UserService userService;
   private final CommentService commentService;
+  private final BlogService blogService;
   
 
   @Autowired
-  public ProjectController(ProjectService projectService, CategoryService categoryService, UserService userService, CommentService commentService) {
+  public ProjectController(ProjectService projectService, CategoryService categoryService, 
+      UserService userService, CommentService commentService, BlogService blogService) {
     this.projectService = projectService;
     this.categoryService = categoryService;
     this.userService = userService;
     this.commentService = commentService;
+    this.blogService = blogService;
   }	
 
   @RequestMapping(value = "/addProject", method = RequestMethod.GET)
@@ -114,8 +119,10 @@ public class ProjectController {
       @PathVariable int projectId) {
     Project project = projectService.getById(projectId);
     List <Comment> comments = project.getCommentList();
+    List <AuthorBlog> posts = project.getPostList();
     model.addAttribute("project", project);
-    model.addAttribute("comments", comments);    
+    model.addAttribute("comments", comments);
+    model.addAttribute("posts", posts);    
     return "project";
   }
 
@@ -148,7 +155,7 @@ public class ProjectController {
       // Creating the directory to store file
       String rootPath = System.getProperty("catalina.home");
       File dir = new File(rootPath + File.separator + "image");
-      if (!dir.exists()) {
+      if (!dir.exists()) {        
         dir.mkdirs();
       }
       // Create the file on server

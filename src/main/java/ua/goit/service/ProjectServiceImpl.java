@@ -32,7 +32,8 @@ public class ProjectServiceImpl implements ProjectService {
     Project project = projectDao.getById(id);
     Hibernate.initialize(project.getUser());
     Hibernate.initialize(project.getCategory());
-    Hibernate.initialize(project.getCommentList());    
+    Hibernate.initialize(project.getCommentList());
+    Hibernate.initialize(project.getPostList());    
     return project;
   }
 

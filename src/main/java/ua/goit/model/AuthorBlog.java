@@ -18,10 +18,8 @@ public class AuthorBlog {
   @JoinColumn(name = "Users_id")
   private User user;
 
-  public AuthorBlog(Integer id, String blog, Timestamp timestamp, Project project, User user) {
-    this.id = id;
+  public AuthorBlog(String blog, Project project, User user) {
     this.blog = blog;
-    this.timestamp = timestamp;
     this.project = project;
     this.user = user;
   }

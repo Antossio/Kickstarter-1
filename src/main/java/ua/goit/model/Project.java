@@ -25,6 +25,9 @@ public class Project {
   private int likesQty;
   @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "project")
   private List<Comment> commentList;
+  @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "project")
+  private List<AuthorBlog> postList;
+  
 
   public Project() {
   }
@@ -39,6 +42,10 @@ public class Project {
     this.likesQty = 0;
   }
 
+  public List<AuthorBlog> getPostList() {
+    return postList;
+  }
+  
   public List<Comment> getCommentList() {
     return commentList;
   }

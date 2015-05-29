@@ -6,17 +6,17 @@
 <%@include file="cssJs.jsp"%>
 <title>Project</title>
 <style>
-    .author { 
-     color: #337ab7;
-     font-weight: bold;        
-    }
-  </style> 
+.author {
+	color: #337ab7;
+	font-weight: bold;
+}
+</style>
 </head>
 <body>
 	<%@include file="header.jsp"%>
 	<div class="container">
 		<div class="row">
-			<div class="col-md-8 col-md-offset-2">
+			<div class="col-md-7 col-md-offset-2">
 				<div class="panel panel-primary">
 					<div class="panel-heading">
 						<h3 class="panel-title">
@@ -50,8 +50,8 @@
 						</div>
 					</div>
 					<input type="hidden" name="userID"
-						value="<c:out value="${userID}"/>"> 
-						<input type="hidden" name="projectID" value="<c:out value="${project.id}"/>">
+						value="<c:out value="${userID}"/>"> <input type="hidden"
+						name="projectID" value="<c:out value="${project.id}"/>">
 					<div class="row">
 						<div class="col-md-3">
 							<input type="submit" value="Add Comment"
@@ -59,17 +59,33 @@
 						</div>
 					</div>
 				</form>
-					<br>
-					<ul class="list-group">
+				<br>
+				<ul class="list-group">
 					<c:forEach var="comment" items="${comments}">
-						<li class="list-group-item"> <span class="author"><c:out
-								value="${comment.user.name}" /></span> <c:out
-								value="${comment.comment}" /><br><c:out
-								value="${comment.timestamp}" /></li>	
-				</c:forEach>
+						<li class="list-group-item"><span class="author"><c:out
+									value="${comment.user.name}" /></span> <c:out
+								value="${comment.comment}" /><br> <c:out
+								value="${comment.timestamp}" /></li>
+					</c:forEach>
 				</ul>
 			</div>
+			<div class="col-md-3">
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<h3 class="panel-title">
+							<c:out value="${project.user.name}" /> blog
+						</h3>
+					</div>
+					<div class="panel-body">
+						<ul class="list-group">
+							<c:forEach var="post" items="${posts}">
+								<li class="list-group-item"><c:out value="${post.blog}" /><br>
+									<c:out value="${post.timestamp}" /></li>
+							</c:forEach>
+						</ul>
+					</div>
+				</div>
+			</div>
 		</div>
-	</div>
 </body>
 </html>

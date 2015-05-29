@@ -34,6 +34,8 @@
 											class="btn btn-success" role="button">Update Project</a> <a
 											href="/kickstarter/dropProjects/<c:out value="${project.id}"/>"
 											class="btn btn-success" role="button">Drop Project</a>
+											<a href="/kickstarter/addPost/<c:out value="${project.id}"/>"
+											class="btn btn-success" role="button">Add post</a>
 									</p>
 								</div>
 							</div>
