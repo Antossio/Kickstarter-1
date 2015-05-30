@@ -33,24 +33,22 @@
 							<p>
 								<c:if test="${empty project.likeList && not empty userID}">
 								<a href="/kickstarter/like/<c:out value="${project.id}"/>"
-												title="Like it">Like </a>
-											<c:out value="${project.likesQty}" />
+												title="Like it">Like </a>										
 								</c:if>
 								<c:forEach var="userLike" items="${project.likeList}">																
 									<c:choose>
 										<c:when test="${userLike.user.id == user.id}">
 											<a href="/kickstarter/unlike/<c:out value="${project.id}"/>"
 												title="Unlike it">Unlike </a>
-											<c:out value="${project.likesQty}" />
-										</c:when>
+											</c:when>
 										<c:otherwise>
 											<a href="/kickstarter/like/<c:out value="${project.id}"/>"
 												title="Like it">Like </a>
-											<c:out value="${project.likesQty}" />
 											</c:otherwise>
 											
 									</c:choose>
 								</c:forEach>								
+								<br><c:out value="${project.likesQty}" /> people like this project
 							</p>
 						</div>
 					</div>
