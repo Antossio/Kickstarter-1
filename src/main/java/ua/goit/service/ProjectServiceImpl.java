@@ -9,6 +9,7 @@ import ua.goit.model.Project;
 
 import javax.transaction.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Transactional
@@ -33,7 +34,8 @@ public class ProjectServiceImpl implements ProjectService {
     Hibernate.initialize(project.getUser());
     Hibernate.initialize(project.getCategory());
     Hibernate.initialize(project.getCommentList());
-    Hibernate.initialize(project.getPostList());    
+    Hibernate.initialize(project.getPostList());
+    Hibernate.initialize(project.getLikeList());
     return project;
   }
 
@@ -59,6 +61,11 @@ public class ProjectServiceImpl implements ProjectService {
 
   @Override
   public List<Project> getProjectsByCategoryId(Integer categoryId) {    
-    return projectDao.getProjectsByCategoryId(categoryId);
+    List<Project> listProject = projectDao.getProjectsByCategoryId(categoryId);
+    List<Project> projectEntity = new ArrayList<>();
+    for(Project p:listProject) {
+      projectEntity.add(this.getById(p.getId()));
+    }
+    return projectEntity;
   }
 }

@@ -8,10 +8,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
 import ua.goit.model.Category;
 import ua.goit.model.Project;
+import ua.goit.model.User;
 import ua.goit.service.CategoryService;
+import ua.goit.service.LikeService;
 import ua.goit.service.ProjectService;
+
 import java.util.List;
 
 @Controller
@@ -19,17 +23,19 @@ public class CategoryController {
   private static final Logger logger = Logger.getLogger(CategoryController.class);
   private ProjectService projectService;
   private CategoryService categoryService;
+  private LikeService likeService;
+  
 
   @Autowired
-  public CategoryController(CategoryService categoryService, ProjectService projectService) {
+  public CategoryController(CategoryService categoryService, ProjectService projectService, LikeService likeService) {
     this.categoryService = categoryService;
     this.projectService = projectService;
+    this.likeService = likeService;
   }
 
   @RequestMapping(value = "/categories/{categoryId}", method = RequestMethod.GET)
   public String showProjectsByCategory(Model model, @PathVariable int categoryId) {
-    List<Project> projects = projectService.
-            getProjectsByCategoryId(Integer.valueOf(categoryId));
+    List<Project> projects = projectService.getProjectsByCategoryId(Integer.valueOf(categoryId));    
     model.addAttribute("projects", projects);
     return "projects";
   }

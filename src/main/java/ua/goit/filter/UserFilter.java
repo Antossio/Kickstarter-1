@@ -39,6 +39,7 @@ public class UserFilter implements Filter {
           req.setAttribute("userName", user.getName());
           req.setAttribute("userID", String.valueOf(user.getId()));
           req.setAttribute("isLoggedIn", "true");
+          req.setAttribute("user", user);
         } 
       } 
     }
