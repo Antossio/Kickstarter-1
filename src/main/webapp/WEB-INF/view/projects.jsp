@@ -49,7 +49,6 @@
                         </c:if>
                         <c:forEach var="userLike"
                                    items="${project.likeList}">
-                            <c:out value="${userLike.users.login}"/>
                             <c:choose>
 
                                 <c:when test="${userLike.users.login eq principal.username}">
