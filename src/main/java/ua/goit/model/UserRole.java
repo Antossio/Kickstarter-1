@@ -1,33 +1,30 @@
 package ua.goit.model;
 
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Parameter;
-
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
-public class UserRoles {
+public class UserRole {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private String id;
 
   private String role;
-  @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL, mappedBy = "userRoles")
-  private List<User> users;
+  @ManyToOne(cascade = CascadeType.ALL)
+  private Users users;
 
-  public UserRoles() {
+  public UserRole() {
   }
 
-  public UserRoles(Role role, User user) {
+  public UserRole(Role role, Users users) {
     this.role = role.toString();
   }
 
-  public List<User> getUsers() {
+  public Users getUsers() {
     return users;
   }
 
-  public void setUsers(List<User> users) {
+  public void setUsers(Users users) {
     this.users = users;
   }
 

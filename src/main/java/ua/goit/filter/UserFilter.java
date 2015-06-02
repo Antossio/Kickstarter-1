@@ -4,7 +4,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import ua.goit.model.User;
+import ua.goit.model.Users;
 import ua.goit.service.UserService;
 
 import javax.servlet.*;
@@ -35,9 +35,9 @@ public class UserFilter implements Filter {
       for (Cookie c : cookies) {
         if (token.equals(c.getName())) {
           tokenValue = c.getValue();
-          User user = userService.findByToken((tokenValue));
-          req.setAttribute("userName", user.getName());
-          req.setAttribute("userID", String.valueOf(user.getId()));
+          Users users = userService.findByToken((tokenValue));
+          req.setAttribute("userName", users.getName());
+          req.setAttribute("userID", String.valueOf(users.getId()));
           req.setAttribute("isLoggedIn", "true");
         } 
       } 

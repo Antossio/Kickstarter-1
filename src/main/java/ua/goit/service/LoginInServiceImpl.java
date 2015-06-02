@@ -2,7 +2,7 @@ package ua.goit.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ua.goit.model.User;
+import ua.goit.model.Users;
 
 import javax.transaction.Transactional;
 
@@ -10,7 +10,7 @@ import javax.transaction.Transactional;
 @Service
 public class LoginInServiceImpl implements LoginInService {
   private final UserService userService;
-  private User user;
+  private Users users;
 
   @Autowired
   public LoginInServiceImpl(UserService userService) {
@@ -18,15 +18,15 @@ public class LoginInServiceImpl implements LoginInService {
   }
 
   @Override
-  public User getUser(String login) {
-    user = userService.getByLogin(login);
-    return user;
+  public Users getUser(String login) {
+    users = userService.getByLogin(login);
+    return users;
   }
 
   @Override
-  public boolean checkPassword(User user, String password) {
-    if (user != null) {
-      String pass = user.getPassword();
+  public boolean checkPassword(Users users, String password) {
+    if (users != null) {
+      String pass = users.getPassword();
       return pass.equals(password);
     } else {
     	return false;
@@ -34,17 +34,17 @@ public class LoginInServiceImpl implements LoginInService {
   }
 
   @Override
-  public String generateToken(User user) {
+  public String generateToken(Users users) {
     String token;
-    token = 31 * user.getId() + user.getLogin().hashCode() + "";
-    user.setToken(token);
+    token = 31 * users.getId() + users.getLogin().hashCode() + "";
+    users.setToken(token);
     return token;
   }
 
   @Override
-  public void updateToken(User user) {
-    if (user != null) {
-      userService.update(user);
+  public void updateToken(Users users) {
+    if (users != null) {
+      userService.update(users);
     } else {
       throw new RuntimeException("User not found!!!");
     }

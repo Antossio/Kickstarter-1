@@ -38,10 +38,7 @@ public abstract class GenericDaoImpl<T> implements GenericDao<T> {
   }
 
   @Override
-  public void remove(Integer id) {
-    T entity = getById(id);
-    if (entity != null) {
+  public void remove(T entity) {
       sessionFactory.getCurrentSession().delete(entity);
-    }
   }
 }

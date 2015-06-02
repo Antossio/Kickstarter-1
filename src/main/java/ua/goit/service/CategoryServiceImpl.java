@@ -39,7 +39,7 @@ public class CategoryServiceImpl implements CategoryService {
   }
 
   @Override
-  public void remove(Integer id) {
-    categoryDao.remove(id);
+  public void remove(Category entity) {
+    categoryDao.remove(entity);
   }
 }

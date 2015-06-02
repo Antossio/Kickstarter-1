@@ -3,37 +3,37 @@ package ua.goit.dao;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
-import ua.goit.model.User;
+import ua.goit.model.Users;
 
 @Repository
-public class UserDaoImpl extends GenericDaoImpl<User> implements UserDao {
+public class UserDaoImpl extends GenericDaoImpl<Users> implements UserDao {
 
   UserDaoImpl() {
-    super(User.class);
+    super(Users.class);
   }
 
   @Override
-  public User getUserByLogin(String login) {
-    String sql = "from User where login =:login";
+  public Users getUserByLogin(String login) {
+    String sql = "from Users where login =:login";
     Query query = getQuery(sql);
-    User user = (User) query.setParameter("login", login).uniqueResult();
-    return user;
+    Users users = (Users) query.setParameter("login", login).uniqueResult();
+    return users;
   }
 
   @Override
-  public User findUserByToken(String token) {
-    String sql = "from User where token =:token";
+  public Users findUserByToken(String token) {
+    String sql = "from Users where token =:token";
     Query query = getQuery(sql);
-    User user = (User) query.setParameter("token", token).uniqueResult();
-    return user;
+    Users users = (Users) query.setParameter("token", token).uniqueResult();
+    return users;
   }
 
   @Override
-  public User findUserByActivationKey(String key) {
-    String sql = "from User where activationKey =:key";
+  public Users findUserByActivationKey(String key) {
+    String sql = "from Users where activationKey =:key";
     Query query = getQuery(sql);
-    User user = (User) query.setParameter("key", key).uniqueResult();
-    return user;
+    Users users = (Users) query.setParameter("key", key).uniqueResult();
+    return users;
   }
 
   private Query getQuery(String sql) {

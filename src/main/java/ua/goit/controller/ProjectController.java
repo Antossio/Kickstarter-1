@@ -5,9 +5,11 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
+
 import org.apache.log4j.Logger;
-import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,8 +34,8 @@ public class ProjectController {
   public ProjectController(ProjectService projectService, CategoryService categoryService, UserService userService) {
     this.projectService = projectService;
     this.categoryService = categoryService;
-    this.userService = userService;		
-  }	
+    this.userService = userService;
+  }
 
   @RequestMapping(value = "/addProject", method = RequestMethod.GET)
   public String handleCategoriesListForNewProject(Model model) {
@@ -43,27 +45,21 @@ public class ProjectController {
   }
 
   @RequestMapping(value = "/projects", method = RequestMethod.GET)
-  public String listProject(Model model,
-      HttpServletRequest req) {
-    int userId = Integer.parseInt((String)req.getAttribute("userID"));
-    List<Project> projectList = projectService.getByUserId(userId);     
+  public String listProject(Model model, HttpServletRequest req) {
+    User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    Users userFromDB = userService.getByLogin(user.getUsername());
+    List<Project> projectList = projectService.getByUserId(userFromDB.getId());
     model.addAttribute("projects", projectList);
     return "listProjects";
   }
 
   @RequestMapping(value = "/projects", method = RequestMethod.POST)
-  public String addProject(Model model,  
-      @RequestParam("categories") String categoryIdString,
-      @RequestParam("projectName") String projectName,
-      @RequestParam("projectShortDesc") String projectShortDesc, 
-      @RequestParam("projectLongDesc") String projectLongDesc,
-      @RequestParam("userID") String userIdString,
-      @RequestParam("img") MultipartFile file) { 
+  public String addProject(Model model, @RequestParam("categories") String categoryIdString, @RequestParam("projectName") String projectName, @RequestParam("projectShortDesc") String projectShortDesc, @RequestParam("projectLongDesc") String projectLongDesc, @RequestParam("userID") String userIdString, @RequestParam("img") MultipartFile file) {
     String linkToFile;
     int categoryId = Integer.parseInt(categoryIdString);
     int userId = Integer.parseInt(userIdString);
     Category categoryObject = categoryService.getById(categoryId);
-    User userObject = userService.getById(userId);   
+    Users userObject = userService.getById(userId);
     if (!file.isEmpty()) {
       try {
         byte[] bytes = file.getBytes();
@@ -76,8 +72,7 @@ public class ProjectController {
         // Create the file on server
         linkToFile = dir.getAbsolutePath() + File.separator + file.getOriginalFilename();
         File serverFile = new File(linkToFile);
-        BufferedOutputStream stream = new BufferedOutputStream(
-            new FileOutputStream(serverFile));
+        BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
         stream.write(bytes);
         stream.close();
         logger.info("Server File Location=" + serverFile.getAbsolutePath());
@@ -88,14 +83,13 @@ public class ProjectController {
       return "error";
     }
     projectService.add(new Project(projectName, categoryObject, userObject, projectShortDesc, projectLongDesc, linkToFile));
-    List<Project> projectList = projectService.getByUserId(userId);		
+    List<Project> projectList = projectService.getByUserId(userId);
     model.addAttribute("projects", projectList);
     return "listProjects";
   }
-  
+
   @RequestMapping(value = "/projects/{projectId}", method = RequestMethod.GET)
-  public String showProject(Model model,
-      @PathVariable int projectId) {
+  public String showProject(Model model, @PathVariable int projectId) {
     Project project = projectService.getById(projectId);
     model.addAttribute("project", project);
     return "project";

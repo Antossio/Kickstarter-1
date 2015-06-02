@@ -154,18 +154,18 @@ values(4,'Petia', 'PetiaLogin','Password','12344','PetiaLogin@gmail.com',0);
 insert into `kickstarter`.`Users`(id, name, login, password, token, email, activeFlag) 
 values(5,'Slava', 'SlavaLogin','Password','12345','SlavaLogin@gmail.com',1);
 
---UserRole
+-- UserRole
 
 insert into `kickstarter`.`UserRole`(id, User_id, role) 
-values(1,1,'ROLE_USER');
+values(1, 1, 'ROLE_USER');
 insert into `kickstarter`.`UserRole`(id, User_id, role) 
-values(2,2,'ROLE_USER');
+values(2, 2, 'ROLE_USER');
 insert into `kickstarter`.`UserRole`(id, User_id, role) 
-values(3,3,'ROLE_ADMIN');
+values(3, 3, 'ROLE_ADMIN');
 insert into `kickstarter`.`UserRole`(id, User_id, role) 
-values(4,4,'ROLE_USER');
+values(4, 4, 'ROLE_USER');
 insert into `kickstarter`.`UserRole`(id, User_id, role) 
-values(5,5,'ROLE_USER');
+values(5, 5, 'ROLE_USER');
 
 -- Category
 

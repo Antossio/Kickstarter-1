@@ -16,7 +16,7 @@ public class Project {
   private Category category;
   @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @JoinColumn(name = "Users_id")
-  private User user;
+  private Users users;
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Timestamp timestamp;
   private String shortDesc;
@@ -28,10 +28,10 @@ public class Project {
   public Project() {
   }
 
-  public Project(String name, Category category, User user, String shortDesc, String longDesc, String link) {
+  public Project(String name, Category category, Users users, String shortDesc, String longDesc, String link) {
     this.name = name;
     this.category = category;
-    this.user = user;
+    this.users = users;
     this.shortDesc = shortDesc;
     this.longDesc = longDesc;
     this.link = link;
@@ -69,12 +69,12 @@ public class Project {
     this.category = category;
   }
 
-  public User getUser() {
-    return user;
+  public Users getUsers() {
+    return users;
   }
 
-  public void setUser(User user) {
-    this.user = user;
+  public void setUsers(Users users) {
+    this.users = users;
   }
 
   public Timestamp getTimestamp() {

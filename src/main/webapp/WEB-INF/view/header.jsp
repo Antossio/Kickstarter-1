@@ -2,7 +2,10 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="security"
+           uri="http://www.springframework.org/security/tags" %>
+<%@ page session="true" %>
 <html>
 <head>
     <link rel="stylesheet" href="/resources/css/bootstrap.min.css"/>
@@ -25,35 +28,34 @@
         </div>
 
         <div class="collapse navbar-collapse" id="myNavbar">
-            <c:choose>
-                <c:when test="${isLoggedIn}">
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="/kickstarter/profile"><span
-                                class="glyphicon glyphicon-user"></span>
-                            <c:out value="${userName}"/></a></li>
-                        <li><a href="/kickstarter/logout">Log out</a></li>
+            <security:authorize access="isAuthenticated()">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="/kickstarter/profile"><span
+                            class="glyphicon glyphicon-user"></span>
+                        <security:authentication property="principal.username"/></a>
+                    </li>
+                    <li><a href="/logout">Log out</a></li>
 
-                    </ul>
-                </c:when>
-                <c:otherwise>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="/kickstarter/signup"><span
-                                class="glyphicon glyphicon-user"></span> Sign Up</a>
-                        </li>
-                        <li><a href="/kickstarter/login"><span
-                                class="glyphicon glyphicon-log-in"></span> Login</a>
-                        </li>
-                    </ul>
-                </c:otherwise>
-            </c:choose>
+                </ul>
+            </security:authorize>
+            <security:authorize access="! isAuthenticated()">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="/kickstarter/signup"><span
+                            class="glyphicon glyphicon-user"></span> Sign Up</a>
+                    </li>
+                    <li><a href="/kickstarter/login"><span
+                            class="glyphicon glyphicon-log-in"></span> Login</a>
+                    </li>
+                </ul>
+            </security:authorize>
             <form class="navbar-form navbar-right">
                 <input type="text" class="form-control" placeholder="Search...">
             </form>
-            <c:if test="${isLoggedIn}">
+            <security:authorize access="isAuthenticated()">
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="/kickstarter/addProject">Add Project</a></li>
                 </ul>
-            </c:if>
+           </security:authorize>
         </div>
     </div>
 </nav>

@@ -47,13 +47,13 @@ DROP TABLE IF EXISTS `kickstarter`.`UserRole`;
 
 CREATE TABLE IF NOT EXISTS `kickstarter`.`UserRole` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `User_id` INT NOT NULL,
+  `Users_id` INT NOT NULL,
   `role` VARCHAR(255) NOT NULL,
   `timeStamp` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
-  INDEX `fk_UserRole_User_idx` (`User_id` ASC),
+  INDEX `fk_UserRole_User_idx` (`Users_id` ASC),
   CONSTRAINT `fk_UserRole_Users`
-    FOREIGN KEY (`User_id`)
+    FOREIGN KEY (`Users_id`)
     REFERENCES `kickstarter`.`Users` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
@@ -156,15 +156,15 @@ values(5,'Slava', 'SlavaLogin','Password','12345','SlavaLogin@gmail.com',1);
 
 -- UserRole
 
-insert into `kickstarter`.`UserRole`(id, User_id, role) 
+insert into `kickstarter`.`UserRole`(id, Users_id, role) 
 values(1, 1, 'ROLE_USER');
-insert into `kickstarter`.`UserRole`(id, User_id, role) 
+insert into `kickstarter`.`UserRole`(id, Users_id, role) 
 values(2, 2, 'ROLE_USER');
-insert into `kickstarter`.`UserRole`(id, User_id, role) 
+insert into `kickstarter`.`UserRole`(id, Users_id, role) 
 values(3, 3, 'ROLE_ADMIN');
-insert into `kickstarter`.`UserRole`(id, User_id, role) 
+insert into `kickstarter`.`UserRole`(id, Users_id, role) 
 values(4, 4, 'ROLE_USER');
-insert into `kickstarter`.`UserRole`(id, User_id, role) 
+insert into `kickstarter`.`UserRole`(id, Users_id, role) 
 values(5, 5, 'ROLE_USER');
 
 -- Category

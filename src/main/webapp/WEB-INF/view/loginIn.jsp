@@ -1,3 +1,4 @@
+
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@ include file="prefixes.jsp"%>
 <head>
@@ -14,9 +15,19 @@
 					<h3 class="panel-title">Please login In</h3>
 				</div>
 				<div class="panel-body">
-					<form role="form" action="/kickstarter/login" method="post">
+					<form role="form" name="loginForm" action="/login" method='post'>
+						<input type="hidden"
+							   name="${_csrf.parameterName}"
+							   value="${_csrf.token}"/>
+						<c:if test="${not empty error}">
+							<div class="alert alert-danger" role="alert">
+								<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+								<span class="sr-only">Error:</span>
+								<c:out value="${error}"/>
+							</div>
+						</c:if>
 						<div class="form-group">
-							<input type="text" name="login" class="form-control input-sm"
+							<input type="text" name="username" class="form-control input-sm"
 								placeholder="Login">
 						</div>
 						<div class="form-group">

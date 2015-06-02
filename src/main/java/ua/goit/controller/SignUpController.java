@@ -10,9 +10,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import ua.goit.annotation.ValidateAnnotation;
-import ua.goit.model.User;
+import ua.goit.model.Users;
 import ua.goit.service.MailServiceSending;
 import ua.goit.service.MailServiceSendingImpl;
+import ua.goit.service.PasswordEncoder;
 import ua.goit.service.UserService;
 import ua.goit.validator.FormValidator;
 
@@ -66,7 +67,7 @@ public class SignUpController{
 			}
 		}
 
-		userService.add(new User(name, login, password, email, activationKey));
+		userService.add(new Users(name, login, PasswordEncoder.encode(password), email, activationKey));
 		MailServiceSending mailServiceSending = new MailServiceSendingImpl(serverEmail, serverPass);
 		mailServiceSending.send("Activation letter!", domain + "kickstarter/activation?key=" + activationKey, serverEmail, email);
 		return "confirm_registration";
@@ -80,14 +81,14 @@ public class SignUpController{
 			model.addAttribute("error", "activation key not found");
 			return "error";
 		}
-		User user = userService.findByActivationKey(activationKey);
-		if (user == null) {
+		Users users = userService.findByActivationKey(activationKey);
+		if (users == null) {
 			return "error";
 		} 
-		String token = 31 * user.getId() + user.getLogin().hashCode() + "";
-		user.setToken(token);
-		user.setIsActive(1);
-		userService.update(user);
+		String token = 31 * users.getId() + users.getLogin().hashCode() + "";
+		users.setToken(token);
+		users.setIsActive(1);
+		userService.update(users);
 		response.addCookie(new Cookie("token", token)); 
 		return "success_registration";
 	}

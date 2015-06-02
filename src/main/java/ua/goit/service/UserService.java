@@ -1,10 +1,10 @@
 package ua.goit.service;
 
-import ua.goit.model.User;
+import ua.goit.model.Users;
 
-public interface UserService extends GenericService<User> {
+public interface UserService extends GenericService<Users> {
 
-  User getByLogin(String login);
-  User findByToken(String token);
-  User findByActivationKey(String key);
+  Users getByLogin(String login);
+  Users findByToken(String token);
+  Users findByActivationKey(String key);
 }

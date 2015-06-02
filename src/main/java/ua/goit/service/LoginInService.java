@@ -1,10 +1,10 @@
 package ua.goit.service;
 
-import ua.goit.model.User;
+import ua.goit.model.Users;
 
 public interface LoginInService {
-  User getUser(String login);
-  boolean checkPassword(User user, String Password);
-  String generateToken(User user);
-  void updateToken(User user);
+  Users getUser(String login);
+  boolean checkPassword(Users users, String Password);
+  String generateToken(Users users);
+  void updateToken(Users users);
 }

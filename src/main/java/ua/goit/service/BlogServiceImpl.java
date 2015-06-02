@@ -40,7 +40,7 @@ public class BlogServiceImpl implements BlogService {
   }
 
   @Override
-  public void remove(Integer id) {
-    blogDao.remove(id);
+  public void remove(AuthorBlog entity) {
+    blogDao.remove(entity);
   }
 }

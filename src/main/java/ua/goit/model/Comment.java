@@ -18,23 +18,23 @@ public class Comment {
   private Project project;
   @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @JoinColumn(name = "Users_id")
-  private User user;
+  private Users users;
 
   public Comment(Integer id, String comment, Timestamp timestamp,
-	  Project project, User user) {
+	  Project project, Users users) {
 	super();
 	this.id = id;
 	this.comment = comment;
 	this.timestamp = timestamp;
 	this.project = project;
-	this.user = user;
+	this.users = users;
   }
 
-  public Comment(String comment, Project project, User user) {
+  public Comment(String comment, Project project, Users users) {
 	super();
 	this.comment = comment;
 	this.project = project;
-	this.user = user;
+	this.users = users;
   }
 
   public Comment() {
@@ -64,10 +64,10 @@ public class Comment {
   public void setProject(Project project_id) {
 	this.project = project_id;
   }
-  public User getUser() {
-	return user;
+  public Users getUsers() {
+	return users;
   }
-  public void setUser(User users_id) {
-	this.user = users_id;
+  public void setUsers(Users users_id) {
+	this.users = users_id;
   }
 }

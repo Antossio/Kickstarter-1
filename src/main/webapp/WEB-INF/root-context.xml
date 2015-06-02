@@ -24,4 +24,8 @@
 		<!-- setting maximum upload size -->
 		<property name="maxUploadSize" value="1000000" />
 	</bean>
+
+	<bean id="passwordEncoder"
+				class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
+	</bean>
 </beans>

@@ -7,5 +7,5 @@ public interface GenericDao<T> {
    T getById(Integer id);
    List<T> getAll();
    void update(T entity);
-   void remove(Integer id);
+   void remove(T entity);
 }
