@@ -1,14 +1,12 @@
 package ua.goit.service;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import ua.goit.dao.CommentDao;
 import ua.goit.model.Comment;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Transactional
 @Service

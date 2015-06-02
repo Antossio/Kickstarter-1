@@ -1,9 +1,9 @@
 package ua.goit.dao;
 
-import ua.goit.model.User;
+import ua.goit.model.Users;
 
-public interface UserDao extends GenericDao<User> {
-    User getUserByLogin(String login);
-    User findUserByToken(String token);
-    User findUserByActivationKey(String key);
+public interface UserDao extends GenericDao<Users> {
+    Users getUserByLogin(String login);
+    Users findUserByToken(String token);
+    Users findUserByActivationKey(String key);
 }

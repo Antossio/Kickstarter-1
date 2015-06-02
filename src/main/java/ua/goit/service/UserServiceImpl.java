@@ -3,7 +3,7 @@ package ua.goit.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ua.goit.dao.UserDao;
-import ua.goit.model.User;
+import ua.goit.model.Users;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -20,22 +20,22 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public void add(User entity) {
+  public void add(Users entity) {
     userDao.add(entity);
   }
 
   @Override
-  public User getById(Integer id) {
+  public Users getById(Integer id) {
     return userDao.getById(id);
   }
 
   @Override
-  public List<User> getAll() {
+  public List<Users> getAll() {
     return userDao.getAll();
   }
 
   @Override
-  public void update(User entity) {
+  public void update(Users entity) {
     userDao.update(entity);
   }
 
@@ -45,17 +45,17 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public User getByLogin(String login) {
+  public Users getByLogin(String login) {
     return userDao.getUserByLogin(login);
   }
 
   @Override
-  public User findByToken(String token) {
+  public Users findByToken(String token) {
     return userDao.findUserByToken(token);
   }
 
   @Override
-  public User findByActivationKey(String key) {
+  public Users findByActivationKey(String key) {
     return userDao.findUserByActivationKey(key);
   }
 }

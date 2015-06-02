@@ -6,10 +6,8 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
-
 import ua.goit.model.Like;
-import ua.goit.model.Project;
-import ua.goit.model.User;
+
 
 @Repository
 public class LikeDaoImpl extends GenericDaoImpl<Like> implements LikeDao{

@@ -24,13 +24,13 @@ public class Like {
   private Project project;
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "Users_id")
-  private User user;
+  private Users users;
  
   public Like() {    
   }
   
-  public Like(Project project, User user) {
-    this.user = user;
+  public Like(Project project, Users users) {
+    this.users = users;
     this.project = project;
   }
 
@@ -38,8 +38,8 @@ public class Like {
     return id;
   }
   
-  public User getUser() {
-    return user;
+  public Users getUser() {
+    return users;
   }
 
   public Project getProject() {

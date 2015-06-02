@@ -53,7 +53,7 @@ public class BlogController {
     int projectId = Integer.parseInt(projectIdString);
     int userId = Integer.parseInt(userIdString);
     Project project = projectService.getById(projectId); 
-    blogService.add(new AuthorBlog(post, project, project.getUser()));
+    blogService.add(new AuthorBlog(post, project, project.getUsers()));
     result = new RedirectView("http://localhost:8080/kickstarter/projects/"+projectIdString);
     return result;
   }

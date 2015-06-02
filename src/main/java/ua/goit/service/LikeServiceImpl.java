@@ -1,17 +1,13 @@
 package ua.goit.service;
 
-import java.util.List;
-
-import javax.transaction.Transactional;
-
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import ua.goit.dao.LikeDao;
-import ua.goit.dao.ProjectDao;
 import ua.goit.model.Like;
-import ua.goit.model.User;
+
+import javax.transaction.Transactional;
+import java.util.List;
 
 @Transactional
 @Service

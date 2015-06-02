@@ -10,7 +10,7 @@ import static org.mockito.Mockito.*;
 
 import org.mockito.MockitoAnnotations;
 import ua.goit.dao.UserDao;
-import ua.goit.model.User;
+import ua.goit.model.Users;
 
 public class LoginInServiceTest {
   private final String login = "login";
@@ -30,10 +30,10 @@ public class LoginInServiceTest {
 
   @Test
   public void userFromDBAndRightPassword_GetUserFromDBAndCheckHisPassword_LoginOk() {
-    User user = new User(1, "user", login, password, null, null, null);
-    when(userDao.getUserByLogin(anyString())).thenReturn(user);
+    Users users = new Users(1, "user", login, password, null, null, null);
+    when(userDao.getUserByLogin(anyString())).thenReturn(users);
     LoginInService loginInService = new LoginInServiceImpl(userService);
-    User userFromLoginService = loginInService.getUser(login);
+    Users userFromLoginService = loginInService.getUser(login);
     boolean isRightPass = loginInService.checkPassword(userFromLoginService, password);
     Assert.assertTrue(isRightPass);
     verify(userDao).getUserByLogin(anyString());
@@ -41,10 +41,10 @@ public class LoginInServiceTest {
 
   @Test
   public void userFromDBAndWrongPassword_GetUserFromDBAndCheckHisPassword_LoginNotOK() {
-    User user = new User(1, "user", login, password, null, null, null);
-    when(userDao.getUserByLogin(anyString())).thenReturn(user);
+    Users users = new Users(1, "user", login, password, null, null, null);
+    when(userDao.getUserByLogin(anyString())).thenReturn(users);
     LoginInService loginInService = new LoginInServiceImpl(userService);
-    User userFromLoginService = loginInService.getUser(login);
+    Users userFromLoginService = loginInService.getUser(login);
     boolean isRightPass = loginInService.checkPassword(userFromLoginService, wrongPassword);
     Assert.assertFalse(isRightPass);
   }

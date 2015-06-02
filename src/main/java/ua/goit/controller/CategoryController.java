@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import ua.goit.model.Category;
 import ua.goit.model.Project;
-import ua.goit.model.User;
+import ua.goit.model.Users;
 import ua.goit.service.CategoryService;
 import ua.goit.service.LikeService;
 import ua.goit.service.ProjectService;

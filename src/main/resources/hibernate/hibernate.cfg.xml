@@ -6,9 +6,10 @@
 		<mapping class="ua.goit.model.Like" />
 		<mapping class="ua.goit.model.Project" />
 		<mapping class="ua.goit.model.Category" />
-		<mapping class="ua.goit.model.User" />
+		<mapping class="ua.goit.model.Users" />
 		<mapping class="ua.goit.model.AuthorBlog" />
 		<mapping class="ua.goit.model.Comment" />
+        <mapping class="ua.goit.model.UserRole"/>
 	</session-factory>
 </hibernate-configuration>
 

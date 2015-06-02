@@ -16,23 +16,23 @@ public class AuthorBlog {
   private Project project;
   @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @JoinColumn(name = "Users_id")
-  private User user;
+  private Users users;
 
-  public AuthorBlog(String blog, Project project, User user) {
+  public AuthorBlog(String blog, Project project, Users user) {
     this.blog = blog;
     this.project = project;
-    this.user = user;
+    this.users = users;
   }
 
   public AuthorBlog() {
   }
 
-  public User getUser() {
-    return user;
+  public Users getUsers() {
+    return users;
   }
 
-  public void setUser(User users) {
-    this.user = users;
+  public void setUsers(Users users) {
+    this.users = users;
   }
 
   public Integer getId() {
