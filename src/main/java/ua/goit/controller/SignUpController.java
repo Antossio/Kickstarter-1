@@ -100,6 +100,5 @@ public class SignUpController {
 
   private String generateActivationKey(String login, String email) {
     return new Random().nextInt(Integer.MAX_VALUE) + "";
-
   }
 }

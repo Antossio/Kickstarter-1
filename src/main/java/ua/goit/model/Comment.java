@@ -16,7 +16,7 @@ public class Comment implements Comparable<Comment> {
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "Project_id")
   private Project project;
-  @ManyToOne(fetch = FetchType.LAZY)
+  @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "Users_id")
   private Users users;
 
@@ -73,12 +73,12 @@ public class Comment implements Comparable<Comment> {
     this.project = project_id;
   }
 
-  public Users getUser() {
+  public Users getUsers() {
     return users;
   }
 
-  public void setUser(Users users_id) {
-    this.users = users_id;
+  public void setUsers(Users users) {
+    this.users = users;
   }
 
   @Override

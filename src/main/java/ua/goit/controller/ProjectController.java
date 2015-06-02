@@ -57,25 +57,40 @@ public class ProjectController {
   }
 
   @RequestMapping(value = "/projects", method = RequestMethod.POST)
-  public String addProject(Model model, @RequestParam("categories") String categoryIdString, @RequestParam("projectName") String projectName, @RequestParam("projectShortDesc") String projectShortDesc, @RequestParam("projectLongDesc") String projectLongDesc, @RequestParam("userID") String userIdString, @RequestParam("linkToFile") String linkToFile, @RequestParam("img") MultipartFile file) {
+  public String addProject(Model model,
+                           @RequestParam("categories") String categoryIdString,
+                           @RequestParam("projectName") String projectName,
+                           @RequestParam("projectShortDesc") String projectShortDesc,
+                           @RequestParam("projectLongDesc") String projectLongDesc,
+                           @RequestParam("linkToFile") String linkToFile,
+                           @RequestParam("img") MultipartFile file) {
 
     int categoryId = Integer.parseInt(categoryIdString);
-    int userId = Integer.parseInt(userIdString);
+    User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    Users userFromDB = userService.getByLogin(user.getUsername());
     Category categoryObject = categoryService.getById(categoryId);
-    Users userObject = userService.getById(userId);
+    Users userObject = userService.getById(userFromDB.getId());
     if (!file.isEmpty()) {
       linkToFile = saveToFile(file);
     }
     projectService.add(new Project(projectName, categoryObject, userObject, projectShortDesc, projectLongDesc, linkToFile));
-    List<Project> projectList = projectService.getByUserId(userId);
+    List<Project> projectList = projectService.getByUserId(userFromDB.getId());
     model.addAttribute("projects", projectList);
     return "listProjects";
   }
 
   @RequestMapping(value = "/updateProject/{projectId}", method = RequestMethod.POST)
-  public String updateProject(Model model, @PathVariable int projectId, @RequestParam("categories") String categoryIdString, @RequestParam("projectName") String projectName, @RequestParam("projectShortDesc") String projectShortDesc, @RequestParam("projectLongDesc") String projectLongDesc, @RequestParam("userID") String userIdString, @RequestParam("linkToFile") String linkToFile, @RequestParam("img") MultipartFile file) {
+  public String updateProject(Model model,
+                              @PathVariable int projectId,
+                              @RequestParam("categories") String categoryIdString,
+                              @RequestParam("projectName") String projectName,
+                              @RequestParam("projectShortDesc") String projectShortDesc,
+                              @RequestParam("projectLongDesc") String projectLongDesc,
+                              @RequestParam("linkToFile") String linkToFile,
+                              @RequestParam("img") MultipartFile file) {
     int categoryId = Integer.parseInt(categoryIdString);
-    int userId = Integer.parseInt(userIdString);
+    User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    Users userFromDB = userService.getByLogin(user.getUsername());
     Category categoryObject = categoryService.getById(categoryId);
     if (!file.isEmpty()) {
       linkToFile = saveToFile(file);
@@ -87,7 +102,7 @@ public class ProjectController {
     project.setLongDesc(projectLongDesc);
     project.setLink(linkToFile);
     projectService.update(project);
-    List<Project> projectList = projectService.getByUserId(userId);
+    List<Project> projectList = projectService.getByUserId(userFromDB.getId());
     model.addAttribute("projects", projectList);
     return "listProjects";
   }
@@ -113,7 +128,8 @@ public class ProjectController {
   }
 
   @RequestMapping(value = "/dropProjects/{projectId}", method = RequestMethod.GET)
-  public String dropProject(Model model, HttpServletRequest req, @PathVariable int projectId) {
+  public String dropProject(Model model, HttpServletRequest req,
+                            @PathVariable int projectId) {
     //   Project project = projectService.getById(projectId);
     projectService.remove(projectId);
     int userId = Integer.parseInt((String) req.getAttribute("userID"));

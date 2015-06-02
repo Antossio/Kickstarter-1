@@ -44,7 +44,9 @@ public class LikeController {
   }
 
   @RequestMapping(value = "/unlike/{projectId}", method = RequestMethod.GET)
-  public RedirectView unlikeProject(Model model, @PathVariable int projectId, HttpServletRequest req) {
+  public RedirectView unlikeProject(Model model,
+                                    @PathVariable int projectId,
+                                    HttpServletRequest req) {
     RedirectView result;
     Project project = projectService.getById(projectId);
     int likesQty = project.getLikesQty();

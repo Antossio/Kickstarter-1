@@ -46,13 +46,11 @@ public class BlogController {
   
   @RequestMapping(value = "/addPost", method = RequestMethod.POST)
   public RedirectView handleAddPostForProject(Model model,
-      @RequestParam("userID") String userIdString,
       @RequestParam("post") String post,
       @RequestParam("projectID") String projectIdString) {
     RedirectView result;
     int projectId = Integer.parseInt(projectIdString);
-    int userId = Integer.parseInt(userIdString);
-    Project project = projectService.getById(projectId); 
+    Project project = projectService.getById(projectId);
     blogService.add(new AuthorBlog(post, project, project.getUsers()));
     result = new RedirectView("http://localhost:8080/kickstarter/projects/"+projectIdString);
     return result;

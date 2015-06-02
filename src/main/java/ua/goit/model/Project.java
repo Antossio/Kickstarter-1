@@ -23,7 +23,7 @@ public class Project {
   private String longDesc;
   private String link;
   private int likesQty;
-  @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "project")
+  @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "project")
   private List<Comment> commentList;
   @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "project")
   private List<AuthorBlog> postList;

@@ -36,7 +36,6 @@ public class CommentController {
   public RedirectView handleCommetForProject(Model model, @RequestParam("userID") String userIdString, @RequestParam("comment") String comment, @RequestParam("projectID") String projectIdString) {
     RedirectView result;
     int projectId = Integer.parseInt(projectIdString);
-    int userId = Integer.parseInt(userIdString);
     Project project = projectService.getById(projectId);
     commentService.add(new Comment(comment, project, project.getUsers()));
     List<Comment> comments = project.getCommentList();
