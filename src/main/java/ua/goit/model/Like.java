@@ -22,7 +22,7 @@ public class Like {
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "Project_id")
   private Project project;
-  @ManyToOne(fetch = FetchType.LAZY)
+  @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "Users_id")
   private Users users;
  
