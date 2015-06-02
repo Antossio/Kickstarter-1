@@ -29,7 +29,7 @@ public class LikeServiceImpl implements LikeService{
   @Override
   public Like getById(Integer id) {
     Like like = likeDao.getById(id);
-    Hibernate.initialize(like.getUser());
+    Hibernate.initialize(like.getUsers());
     return like;
   }
 

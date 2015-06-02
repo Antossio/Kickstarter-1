@@ -18,7 +18,7 @@ public class AuthorBlog {
   @JoinColumn(name = "Users_id")
   private Users users;
 
-  public AuthorBlog(String blog, Project project, Users user) {
+  public AuthorBlog(String blog, Project project, Users users) {
     this.blog = blog;
     this.project = project;
     this.users = users;

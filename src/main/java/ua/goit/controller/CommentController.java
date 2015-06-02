@@ -42,7 +42,7 @@ public class CommentController {
     Collections.sort(comments);
     model.addAttribute("project", project);
     model.addAttribute("comments", comments);
-    result = new RedirectView("http://localhost:8080/kickstarter/projects/" + projectIdString);
+    result = new RedirectView("/kickstarter/projects/" + projectIdString);
     return result;
   }
 

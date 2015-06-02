@@ -34,11 +34,23 @@ public class Like {
     this.project = project;
   }
 
+  public void setId(Integer id) {
+    this.id = id;
+  }
+
+  public void setProject(Project project) {
+    this.project = project;
+  }
+
+  public void setUsers(Users users) {
+    this.users = users;
+  }
+
   public int getId() {
     return id;
   }
   
-  public Users getUser() {
+  public Users getUsers() {
     return users;
   }
 

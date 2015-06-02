@@ -37,7 +37,7 @@
 
                 </ul>
             </div>
-
+            <security:authorize access="isAuthenticated()">
             <form role="form" action="/kickstarter/addComments" method="post">
                 <div class="row">
                     <div class="col-md-6">
@@ -49,18 +49,16 @@
                         </div>
                     </div>
                 </div>
-                <input type="hidden" name="userID"
-                       value="<c:out value="${userID}"/>"> <input type="hidden"
-                                                                  name="projectID"
-                                                                  value="<c:out value="${project.id}"/>">
-
                 <div class="row">
                     <div class="col-md-3">
                         <input type="submit" value="Add Comment"
-                               class="btn btn-primary btn-block">
+                        class="btn btn-primary btn-block">
                     </div>
                 </div>
             </form>
+            </security:authorize>
+            <input type="hidden" name="projectID"
+                   value="<c:out value="${project.id}"/>">
             <br>
             <ul class="list-group">
                 <c:forEach var="comment" items="${comments}">
