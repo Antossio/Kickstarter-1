@@ -68,6 +68,16 @@ CREATE TABLE IF NOT EXISTS `kickstarter`.`Project` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+ALTER TABLE Project ADD COLUMN likesQty int AFTER link;
+
+create table if not exists Likes(
+Project_id bigint unsigned  not null,
+Users_id bigint unsigned  not null,
+foreign key(Project_id) references Project(id) on delete cascade,
+foreign key(Users_id) references Users(id) on delete cascade
+);
+
+ALTER TABLE Likes ADD COLUMN id serial primary key;
 
 -- -----------------------------------------------------
 -- Table `kickstarter`.`Coments`
