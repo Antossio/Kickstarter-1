@@ -53,6 +53,7 @@ CREATE TABLE IF NOT EXISTS `kickstarter`.`Project` (
   `longDesc` VARCHAR(2048) NOT NULL,
   `shortDesc` VARCHAR(255) NOT NULL,
   `link` VARCHAR(255) ,
+  `likesQty` INT DEFAULT 0,
   PRIMARY KEY (`id`),
   INDEX `fk_Project_Category_idx` (`Category_id` ASC),
   INDEX `fk_Project_Users1_idx` (`Users_id` ASC),
@@ -68,16 +69,24 @@ CREATE TABLE IF NOT EXISTS `kickstarter`.`Project` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-ALTER TABLE Project ADD COLUMN likesQty int AFTER link;
-
-create table if not exists Likes(
-Project_id bigint unsigned  not null,
-Users_id bigint unsigned  not null,
-foreign key(Project_id) references Project(id) on delete cascade,
-foreign key(Users_id) references Users(id) on delete cascade
-);
-
-ALTER TABLE Likes ADD COLUMN id serial primary key;
+CREATE TABLE IF NOT EXISTS `kickstarter`.`Likes` (
+`id` INT NOT NULL AUTO_INCREMENT,
+Project_id INT NOT NULL,
+Users_id INT NOT NULL,
+PRIMARY KEY (`id`),
+INDEX `fk_Likes_Project_idx` (`Project_id` ASC),
+INDEX `fk_Likes_Users_idx` (`Users_id` ASC),
+CONSTRAINT `fk_Likes_Category`
+FOREIGN KEY (`Project_id`)
+    REFERENCES `kickstarter`.`Project` (`id`)
+    ON DELETE  CASCADE
+    ON UPDATE  CASCADE,
+CONSTRAINT `fk_Likes_Users`
+    FOREIGN KEY (`Users_id`)
+    REFERENCES `kickstarter`.`Users` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB;
 
 -- -----------------------------------------------------
 -- Table `kickstarter`.`Coments`

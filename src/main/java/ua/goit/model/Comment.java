@@ -6,7 +6,7 @@ import java.sql.Timestamp;
 import java.util.Comparator;
 
 @Entity
-@Table(name = "coments")
+@Table(name = "Coments")
 public class Comment implements Comparable<Comment> {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
